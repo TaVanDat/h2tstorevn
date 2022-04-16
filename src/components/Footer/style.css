@@ -1,0 +1,74 @@
+
+.footer{
+    width: 100%;
+    
+    border-top: 1px solid rgb(231,231,231);
+    /* border-bottom: 1px solid rgb(231,231,231); */
+}
+.footer .main-footer{
+    padding: 40px 0 30px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 25% calc(50%/3) calc(50%/3) calc(50%/3) 25%;
+}
+.footer .main-footer>div{
+    padding:0 15px;
+}
+.footer .main-footer h4{
+    font-size: 20px;
+    letter-spacing: 0.02em;
+    margin: 0 0 20px;
+    position: relative;
+    line-height: 30px;
+    font-weight: 700;
+}
+
+.footer .footer-content ul li{
+    line-height: 28px;display: block;
+}
+
+.footer .social h4{
+    text-transform: uppercase;
+    font-size: 13px;
+}
+.footer .customer-title{
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.footer .number-phone a{
+    line-height: 32px;
+    font-size: 18px;
+}
+.footer .number-phone i{
+    background-color: red;
+    color:#fff;
+    font-size: 12px;
+    padding: 4px;
+    margin-right: 5px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.footer .social .nav-social{
+    display: flex;
+    justify-content: space-around;
+}
+.footer .social .nav-social li:last-child i{
+    width: 35px;
+    height: 35px;
+    background-image: url('../../assets/images/logo-zalo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+
+}
+.footer .social .nav-social li:not(:last-child) i{
+    font-size: 30px;
+}
+
+.footer .bottom-footer{
+    border-top: 1px solid rgb(231,231,231);
+    padding: 20px 0;
+    text-align: center;
+    vertical-align: middle;
+}

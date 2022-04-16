@@ -1,0 +1,205 @@
+:root{
+    --main-color:rgb(232,82,5);
+}
+a{
+    color:#252a2b;
+}
+.header{
+    height: 100px;
+}
+.header-topbar{
+    background-color: rgb(247,247,247);
+    padding: 0 85px;
+    text-align: center;
+}
+.header-topbar p {
+    padding: 0.25rem 0;
+    line-height: 1.3125rem;
+    margin-bottom: 0;
+    font-size: 0.75rem;
+    color: rgb(64,67,64);
+}
+.header-bottom{
+    height: 71px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 0 85px; */
+}
+.header-bottom .header-logo .home-link img{
+    width: 14.7rem;
+    height: 3.44rem;
+}
+.header-nav nav{
+    text-transform: uppercase;
+    z-index: 10;
+}
+.header-nav nav>li{
+    display: inline-block;
+    float: none;
+    position: relative;
+}
+.header-nav nav>li>a{
+    display: block;
+    margin: 0 12px;
+    color: #252a2b;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 70px;
+    position: relative;
+}
+.header-nav nav>li:first-child>a::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 2px solid #5c5c5c;
+}
+.header-nav nav >li>a:hover::before{
+    border: none;
+}
+.header-nav nav .icon-down{
+    display: inline-block;
+    font-size: 9px;
+    margin-left: 6px;
+    margin-bottom: 2px;
+    vertical-align: middle;
+}
+.header-nav nav a:hover{
+    color: var(--main-color);
+
+}
+@keyframes border-line{
+    to{
+        width: 100%;
+        height: 1px;
+        background-color: red;
+    }
+}
+.header-nav nav a:hover >.icon-down{
+    transform: rotate(180deg);
+}
+.header-nav nav a .icon-vertical{
+    transform: rotate(-90deg);
+}
+.header-nav nav a:hover >.icon-vertical{
+    transform: rotate(-270deg);
+}
+
+/* sub menu */
+
+.header-nav nav ul.submenu{
+    background-color: #fff;
+    transform-origin: 0 0;
+    animation: scroll_menu_from 0.3s ease 1 alternate forwards ;
+    opacity: 0;
+    position: absolute;
+    min-width: 120px;
+    top:98%;left: 0;
+    z-index: 999;
+    border-top: 2px solid #5c5c5c;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+}
+.header-nav nav ul.submenu li{
+    position: relative;
+}
+.header-nav nav ul.submenu li:not(:first-child) {
+    border-top: 1px solid #ecf0f1;
+}
+.header-nav nav ul.submenu a{
+    padding: 9px 18px;
+    white-space: nowrap;
+    text-align: left;
+    display: block;
+    font-size: 14px;
+}
+.header-nav nav>li:hover .submenu{
+    display: block;
+    animation: scroll_menu_to 0.4s ease 1 alternate forwards ;
+}
+
+
+/* submenu2 */
+.header-nav nav ul.submenu2{
+    background-color: #fff;
+    transform-origin: 0 0;
+    animation: scroll_menu_left 0.3s ease 1 alternate forwards ;
+    position: absolute;
+    min-width: 120px;
+    top:-2%;left: 100%;
+    z-index: 999;
+    border-top: 2px solid #5c5c5c;
+}
+.header-nav nav ul.submenu>li:hover .submenu2{
+    animation: scroll_menu_right 0.4s ease 1 alternate forwards ;
+}
+
+
+/* user */
+.header-bottom .header-user{
+    height: 40px;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+}
+.header-bottom .header-user i{ 
+    margin-left: 12px;
+    padding: 0 10px;
+    font-size: 22px;
+    line-height: 40px;
+    color: #000;
+    display: block;
+}
+@keyframes rotate{
+    from{
+        transform: rotate(0);
+    }
+    to{
+        transform: rotate(180deg);
+    }
+}
+@keyframes scroll_menu_to {
+    from{
+        opacity: 0;
+        transform-origin: 0 0;
+        transform: scale(1,0);
+    }
+    to{
+        opacity: 1;
+        transform-origin: 0 0;
+        transform: scale(1,1);
+    }
+}
+@keyframes scroll_menu_from {
+    to{
+        opacity: 0;
+        transform-origin: 0 0;
+        transform: scale(1,0);
+        display: none;
+    }
+}
+/*  */
+/* animation submenu2 */
+@keyframes scroll_menu_right {
+    from{
+        opacity: 0;
+        transform-origin: 0 0;
+        transform: scale(0,1);
+    }
+    to{
+        opacity: 1;
+        transform-origin: 0 0;
+        transform: scale(1,1);
+    }
+}
+@keyframes scroll_menu_left {
+    to{
+        opacity: 0;
+        transform-origin: 0 0;
+        transform: scale(0,1);
+    }
+}
+/*  */
+
+
