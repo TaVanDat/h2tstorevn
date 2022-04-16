@@ -42,8 +42,11 @@ const HomePage = () => {
                     </div>
                 </Carousel>
             </div>
-            <h1>cun con</h1>
-            <Link to='/product'>Product</Link>
+            <section className='product-latest'>
+                <h1>cun con</h1>
+                <Link to='/product'>Product</Link>
+                <img src={require('../../assets/images/slide/slideshow_2.png')} width='200' alt="not" />
+            </section>
             <Footer />
         </>
     )
