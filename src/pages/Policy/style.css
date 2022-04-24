@@ -1,0 +1,27 @@
+.policy{
+    padding: 0 15px;
+    width: 75%;
+    margin: 30px auto;
+}
+
+.policy .wrapper-policy{
+    margin-left: 100px;
+}
+.policy .heading-page h1{
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+.policy .wrapper-content-page .content-page{
+    padding-bottom: 30px;
+}
+.policy .wrapper-content-page .content-page ul{
+    padding-left: 40px;
+    margin-bottom: 15px;
+}
+.policy .wrapper-content-page .content-page ul li{
+    list-style-type:disc;
+    list-style-position:inside
+}

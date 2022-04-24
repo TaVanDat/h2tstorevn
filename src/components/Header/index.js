@@ -1,15 +1,19 @@
 import React from 'react'
 
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import Containers from '../common/Container'
 
 import './style.css'
 
 const Header = () => {
+
+    // const removeEvent = () => {
+    //     liActive.current.classList.remove('active')
+    // }
     return (
         <div className='header'>
-            <div className="header-topbar">
-                <p>Miễn phí</p>
+            <div className="header-topbar" id='header-top'>
+                <p>Miễn phí vận chuyển với đơn hàng trên 500K</p>
             </div>
             <Containers>
                 <div className="header-bottom">
@@ -20,116 +24,113 @@ const Header = () => {
                     </div>
                     <div className="header-nav">
                         <nav className="header-navigation">
-                            <li><NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sản phẩm
+                            <li><NavLink to='/'>Sản phẩm
                                 <i className="fa-solid fa-chevron-down icon-down"></i>
                             </NavLink>
                                 <ul className="submenu">
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sale off 75%</NavLink>
+                                        <NavLink to='/product'>Sale off 75%</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Áo
-                                            <i className="fa-solid fa-chevron-down icon-vertical"></i>
-                                        </NavLink>
+                                        <NavLink to='/product'>Áo
+                                            <i className="fa-solid fa-angle-right icon-vertical"></i>
+                                        </NavLink>{/**ao */}
                                         <ul className="submenu2">
                                             <li>
-                                                <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sale sản phẩm mùa đông</NavLink>
+                                                <NavLink to='/product'>Áo thun</NavLink>
                                             </li>
                                             <li>
-                                                <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sale áo sơ mi_ quần dài</NavLink>
+                                                <NavLink to='/product'>Áo polo</NavLink>
                                             </li>
                                             <li>
-                                                <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sale áo thun_ quần short</NavLink>
+                                                <NavLink to='/product'>áo sơ mi</NavLink>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Quần
-                                            <i className="fa-solid fa-chevron-down icon-vertical"></i>
+                                        <NavLink to='/product'>Quần
+                                            <i className="fa-solid fa-angle-right icon-vertical"></i>
                                         </NavLink>
                                         <ul className="submenu2">
                                             <li>
-                                                <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sale sản phẩm mùa đông</NavLink>
+                                                <NavLink to='/product'>quần short</NavLink>
                                             </li>
                                             <li>
-                                                <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sale áo sơ mi_ quần dài</NavLink>
+                                                <NavLink to='/product'>quần jeans</NavLink>
                                             </li>
                                             <li>
-                                                <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sale áo thun_ quần short</NavLink>
+                                                <NavLink to='/product'>quần jogger_quần dài</NavLink>
+                                            </li>
+                                            <li>
+                                                <NavLink to='/product'>quần tây_quần kaki</NavLink>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Giày da</NavLink>
+                                        <NavLink to='/product'>Giày da</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Balo-túi sách</NavLink>
+                                        <NavLink to='/product'>Balo-túi sách</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Phụ kiện khác</NavLink>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sale up to 75%
-                                <i className="fa-solid fa-chevron-down icon-down"></i>
-                            </NavLink>
-                                <ul className="submenu">
-                                    <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sale sản phẩm mùa đông</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sale áo sơ mi_ quần dài</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Sale áo thun_ quần short</NavLink>
+                                        <NavLink to='/product'>Phụ kiện khác</NavLink>
                                     </li>
                                 </ul>
                             </li>
-                            <li><NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Địa chỉ store
+                            <li><NavLink to='/collections/sale75'>Sale up to 75%
                                 <i className="fa-solid fa-chevron-down icon-down"></i>
-                            </NavLink>
+                            </NavLink>{/*sale up to 75% */}
                                 <ul className="submenu">
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Hà nội</NavLink>
+                                        <NavLink to='/product'>Sale sản phẩm mùa đông</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Bắc giang</NavLink>
+                                        <NavLink to='/product'>Sale áo sơ mi_ quần dài</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>hải phòng</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>thanh hóa</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>quảng ninh</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>cao bằng</NavLink>
+                                        <NavLink to='/product'>Sale áo thun_ quần short</NavLink>
                                     </li>
                                 </ul>
                             </li>
-                            <li><NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>H.Dẫn-C.Sách
+                            <li><NavLink to='/pages/hethongcuahang'>Địa chỉ store
                                 <i className="fa-solid fa-chevron-down icon-down"></i>
-                            </NavLink>
+                            </NavLink>{/* Address*/}
                                 <ul className="submenu">
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>cs đổi trả</NavLink>
+                                        <NavLink to='/pages/cua-hang-ha-noi'>Hà nội</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>tk ngân hàng</NavLink>
+                                        <NavLink to='/pages/cua-hang-bac-giang'>Bắc giang</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>kt đơn hàng</NavLink>
+                                        <NavLink to='/pages/cua-hang-hai-phong'>hải phòng</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Membership</NavLink>
+                                        <NavLink to='/pages/cua-hang-thanh-hoa'>thanh hóa</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Balo-túi sách</NavLink>
+                                        <NavLink to='/pages/quang-ninh'>quảng ninh</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/product' className={(isActive) => isActive ? "nav-active" : ''}>Phụ kiện khác</NavLink>
+                                        <NavLink to='/pages/cua-hang-cao-bang'>cao bằng</NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><NavLink to='/pages/huong-dan-chinh-sach'>H.Dẫn-C.Sách
+                                <i className="fa-solid fa-chevron-down icon-down"></i>
+                            </NavLink>{/*Hdan- Csach */}
+                                <ul className="submenu">
+                                    <li>
+                                        <NavLink to='/pages/chinh-sach-doi-tra'>cs đổi trả</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/pages/tk-ngan-hang'>tk ngân hàng</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/'>kt đơn hàng</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/'>Membership</NavLink>
                                     </li>
                                 </ul>
                             </li>
@@ -137,19 +138,30 @@ const Header = () => {
                     </div>
                     <div className="header-user">
                         <div className="header-user-search">
-                            <NavLink to='/'>
+                            <Link to='/'>
                                 <i className="fa-solid fa-magnifying-glass"></i>
-                            </NavLink>
+                            </Link>
                         </div>
                         <div className="header-user-account">
-                            <NavLink to='/'>
-                                <i className="fa-solid fa-circle-user"></i>
-                            </NavLink>
+                            <div className="header-user-account-text">
+                                <Link to='/'>
+                                    <i className="fa-solid fa-circle-user"></i>
+                                </Link>
+                            </div>
+                            <div className="header-user-account-dropdown">
+                                <div id="header-login-panel" className='site_account-panel'>
+                                    <header className='site_account_header'>
+                                        <h2 className='site-account_title'>Đăng nhập tài khoản</h2>
+                                        <p className="site_account_legend">Nhập email và mật khẩu của bạn:</p>
+                                    </header>
+
+                                </div>
+                            </div>
                         </div>
                         <div className="header-user-cart">
-                            <NavLink to='/'>
+                            <Link to='/'>
                                 <i className="fa-solid fa-bag-shopping"></i>
-                            </NavLink>
+                            </Link>
                         </div>
                     </div>
                 </div>

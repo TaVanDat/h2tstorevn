@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel } from 'antd';
@@ -5,20 +6,20 @@ import { Carousel } from 'antd';
 import 'antd/dist/antd.min.css';
 import './style.css'
 
-import axios from 'axios'
+// import axios from 'axios'
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
 const HomePage = () => {
-    useEffect(() => {
-        axios.get('http://localhost:5000/api/v1/product/2', { headers: { 'Content-Type': 'application/json' } })
-            .then(res => {
-                console.log(res.data.data[0])
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }, [])
+    // useEffect(() => {
+    //     axios.get('http://localhost:5000/api/v1/product/2', { headers: { 'Content-Type': 'application/json' } })
+    //         .then(res => {
+    //             console.log(res.data.data[0])
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    // }, [])
     return (
         <>
             <Header />

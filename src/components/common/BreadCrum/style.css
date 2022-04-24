@@ -1,0 +1,14 @@
+.breadcrumb{
+    padding: 10px 85px;
+    background-color: rgb(245,245,245);
+    font-size: 13px;
+    /* rgb(37,42,43) */
+    /* rgb(139,119,160) */
+}
+.breadcrumb a{
+    color:#252a2b;
+}
+.breadcrumb span {
+    font-size: 13px;
+    color:#777;
+}

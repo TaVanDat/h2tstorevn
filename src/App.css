@@ -6,9 +6,15 @@
 }
 a{
   text-decoration: none;
-  color:black;
+  /* color:black; */
 }
 li{
   list-style: none;
+}
+a{
+  color: #252a2b;
+}
+a:hover{
+  color:#e85205 !important;
 }
 

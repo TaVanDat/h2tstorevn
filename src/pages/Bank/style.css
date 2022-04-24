@@ -1,0 +1,23 @@
+.bank{
+    padding: 0 15px;
+    width: 75%;
+    margin: 30px auto;
+}
+
+.bank .wrapper-bank{
+    margin-left: 50px;
+}
+.bank .heading-page h1{
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+.bank .wrapper-content-page .content-page{
+    padding-bottom: 30px;
+}
+.bank .wrapper-content-page .content-page img {
+    width: 100%;
+    object-fit: cover;
+}

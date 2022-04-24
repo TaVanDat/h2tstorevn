@@ -27,10 +27,10 @@ const Footer = () => {
                         <h4 className="footer-title">Chính sách</h4>
                         <div className="footer-content">
                             <ul>
-                                <li className="item"><Link to="/pages/chinh-sach-doi-tra" title="CS ĐỔI TRẢ">CS ĐỔI TRẢ</Link></li>
-                                <li className="item"><Link to="/pages/tk-ngan-hang" title="TK NGÂN HÀNG">TK NGÂN HÀNG</Link></li>
-                                <li className="item"><Link to="/" title="KT ĐƠN HÀNG">KT ĐƠN HÀNG</Link></li>
-                                <li className="item"><Link to="/" title="MEMBERSHIP">MEMBERSHIP</Link></li>
+                                <li className="item"><a href="/pages/chinh-sach-doi-tra" title="CS ĐỔI TRẢ">CS ĐỔI TRẢ</a></li>
+                                <li className="item"><a href="/pages/tk-ngan-hang" title="TK NGÂN HÀNG">TK NGÂN HÀNG</a></li>
+                                <li className="item"><a href="/" title="KT ĐƠN HÀNG">KT ĐƠN HÀNG</a></li>
+                                <li className="item"><a href="/" title="MEMBERSHIP">MEMBERSHIP</a></li>
                             </ul>
                         </div>
                     </div>
