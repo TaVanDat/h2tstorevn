@@ -13,6 +13,7 @@ import ThanhHoa from "../pages/Address/ThanhHoa";
 import QuangNinh from "../pages/Address/QuangNinh";
 import CaoBang from "../pages/Address/CaoBang";
 import Login from "../pages/Login";
+import Shirt from "../pages/Shirt";
 
 const RouterConfig = () => {
     const routes = useRoutes([
@@ -32,6 +33,7 @@ const RouterConfig = () => {
         { path: '/pages/chinh-sach-doi-tra', element: <Policy /> },
         { path: '/pages/tk-ngan-hang', element: <Bank /> },
         // /collections/all
+        { path: `${Products}`, element: <Shirt /> }
     ])
     return routes
 }
