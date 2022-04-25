@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 
+import './style.css'
+
 import Popup from 'reactjs-popup';
 
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Containers from '../common/Container'
 
-import './style.css'
 import Button from '../common/Button';
+import axios from 'axios';
+import { notification } from 'antd'
 
 const steps = [
     {
@@ -19,12 +22,17 @@ const steps = [
 const Header = () => {
     const [isOpenned, setIsOpenned] = useState(false);
     const [current, setCurrent] = React.useState(0);
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const navigate = useNavigate();
+    // open dropdown account
     const handleClick = () => {
-        setIsOpenned(wasOpened => !wasOpened);
+        auth ? setIsOpenned(wasOpened => !wasOpened) : setIsOpenned(wasOpened => wasOpened)
     }
     const handleClickClose = () => (
         setIsOpenned(wasOpened => wasOpened)
     )
+    // slide login => recover
     const next = () => {
         setCurrent(current + 1);
     };
@@ -32,6 +40,54 @@ const Header = () => {
     const prev = () => {
         setCurrent(current - 1);
     };
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value)
+    }
+    const handlePassword = (e) => {
+        setPassword(e.target.value)
+    }
+    // login
+    const login = async (e) => {
+        e.preventDefault();
+        await axios({
+            method: "POST",
+            url: 'http://localhost:5000/api/v1/authentication/login',
+            data: { Email: email, Password: password },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => {
+                notification.success({
+                    message: 'Đăng nhập thành công!',
+                    description: '',
+                    className: 'login_success'
+                })
+                console.log(res.data.data.token)
+                localStorage.setItem('token', res.data.data.token)
+                navigate('/pages/huong-dan-chinh-sach')
+
+            })
+            .catch(err => {
+                notification.success({
+                    message: 'Đăng nhập thất bại!',
+                    description: '',
+                    className: 'login_success'
+                })
+            })
+
+    }
+    const auth = localStorage.getItem('token');
+    const logout = () => {
+        localStorage.removeItem('token');
+        notification.success({
+            message: 'Đăng xuất thành công!',
+            description: '',
+            className: 'logout-success'
+        })
+    }
+    console.log(auth)
     return (
         <div className='header'>
             <div className="header-topbar" id='header-top'>
@@ -173,7 +229,7 @@ const Header = () => {
                                 }
                                 position="bottom center"
                                 closeOnDocumentClick>
-                                {!isOpenned ?
+                                {!auth ?
                                     <div className="header-user-account-dropdown" onClick={(e) => { handleClickClose(); e.stopPropagation() }}>
                                         <div id="header-login-panel" className='site_account-panel'>
 
@@ -184,12 +240,12 @@ const Header = () => {
                                                             <h2 className='site-account_title'>Đăng nhập tài khoản</h2>
                                                             <p className="site_account_legend">Nhập email và mật khẩu của bạn:</p>
                                                         </header>
-                                                        <form action="/account/login" className="customer_login">
+                                                        <form className="customer_login" onSubmit={login}>
                                                             <div className="customer_login_email">
-                                                                <input type="text" className='email' placeholder='Email' />
+                                                                <input type="email" onChange={e => handleEmail(e)} className='email' placeholder='Email' />
                                                             </div>
                                                             <div className="customer_login_password">
-                                                                <input type="text" className='password' placeholder='Password' />
+                                                                <input type="password" onChange={e => handlePassword(e)} className='password' placeholder='Password' />
                                                             </div>
                                                             <div className="site_recaptcha" style={{ color: 'rgb(180,180,180)', padding: '6px 0 0', fontSize: '13px', marginBottom: 12 }}>
                                                                 This site is protected by reCAPTCHA and the Google <a href='https://policies.google.com/privacy' style={{ color: 'blue' }} target="_blank" rel="noreferrer">Privacy Policy</a>  and <a href="https://policies.google.com/terms" style={{ color: 'blue' }} target="_blank" rel="noreferrer">Terms of Service</a>  apply.
@@ -204,7 +260,7 @@ const Header = () => {
                                                                 <h2 className='site-account_title'>khôi phục mật khẩu</h2>
                                                                 <p className="site_account_legend">Nhập email của bạn:</p>
                                                             </header>
-                                                            <form action="/account/recover" className="customer_login">
+                                                            <form className="customer_login" >
                                                                 <div className="customer_login_email">
                                                                     <input type="text" className='email' placeholder='Email' />
                                                                 </div>
@@ -246,7 +302,7 @@ const Header = () => {
                                                 <li><span>Ta Dat</span></li>
                                                 <li><Link to="/account">Tài khoản của tôi</Link></li>
                                                 <li><Link to="/account/update">Cập nhật tài khoản</Link></li>
-                                                <li><Link to="/account/logout">Đăng xuất</Link></li>
+                                                <li><Link to="/" onClick={logout}>Đăng xuất</Link></li>
                                             </ul>
                                         </div>
                                     </div>
