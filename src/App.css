@@ -17,4 +17,7 @@ a{
 a:hover{
   color:#e85205 !important;
 }
+button{
+  cursor: pointer;
+}
 

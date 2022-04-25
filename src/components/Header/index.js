@@ -1,15 +1,72 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+import Popup from 'reactjs-popup';
 
 import { Link, NavLink } from 'react-router-dom'
 import Containers from '../common/Container'
 
 import './style.css'
+import Button from '../common/Button';
 
+const steps = [
+    {
+        content: (
+            <>
+                <header className='site_account_header'>
+                    <h2 className='site-account_title'>Đăng nhập tài khoản</h2>
+                    <p className="site_account_legend">Nhập email và mật khẩu của bạn:</p>
+                </header>
+                <form action="/account/login" className="customer_login">
+                    <div className="customer_login_email">
+                        <input type="text" className='email' placeholder='Email' />
+                    </div>
+                    <div className="customer_login_password">
+                        <input type="text" className='password' placeholder='Password' />
+                    </div>
+                    <div className="site_recaptcha" style={{ color: 'rgb(180,180,180)', padding: '6px 0 0', fontSize: '13px', marginBottom: 12 }}>
+                        This site is protected by reCAPTCHA and the Google <a href='https://policies.google.com/privacy' style={{ color: 'blue' }} target="_blank" rel="noreferrer">Privacy Policy</a>  and <a href="https://policies.google.com/terms" style={{ color: 'blue' }} target="_blank" rel="noreferrer">Terms of Service</a>  apply.
+                    </div>
+                    <Button name='đăng nhập' />
+                </form>
+            </>
+        )
+    },
+    {
+        content: (
+            <>
+                <header className='site_account_header'>
+                    <h2 className='site-account_title'>khôi phục mật khẩu</h2>
+                    <p className="site_account_legend">Nhập email của bạn:</p>
+                </header>
+                <form action="/account/recover" className="customer_login">
+                    <div className="customer_login_email">
+                        <input type="text" className='email' placeholder='Email' />
+                    </div>
+                    <div className="site_recaptcha" style={{ color: 'rgb(180,180,180)', padding: '6px 0 0', fontSize: '13px', marginBottom: 12 }}>
+                        This site is protected by reCAPTCHA and the Google <a href='https://policies.google.com/privacy' style={{ color: 'blue' }} target="_blank" rel="noreferrer">Privacy Policy</a>  and <a href="https://policies.google.com/terms" style={{ color: 'blue' }} target="_blank" rel="noreferrer">Terms of Service</a>  apply.
+                    </div>
+                    <Button name='khôi phục' />
+                </form>
+            </>
+        )
+    }
+]
 const Header = () => {
+    const [isOpenned, setIsOpenned] = useState(false);
+    const [current, setCurrent] = React.useState(0);
+    const handleClick = () => {
+        setIsOpenned(wasOpened => !wasOpened);
+    }
+    const handleClickClose = () => (
+        setIsOpenned(wasOpened => wasOpened)
+    )
+    const next = () => {
+        setCurrent(current + 1);
+    };
 
-    // const removeEvent = () => {
-    //     liActive.current.classList.remove('active')
-    // }
+    const prev = () => {
+        setCurrent(current - 1);
+    };
     return (
         <div className='header'>
             <div className="header-topbar" id='header-top'>
@@ -143,20 +200,93 @@ const Header = () => {
                             </Link>
                         </div>
                         <div className="header-user-account">
-                            <div className="header-user-account-text">
-                                <Link to='/'>
-                                    <i className="fa-solid fa-circle-user"></i>
-                                </Link>
-                            </div>
-                            <div className="header-user-account-dropdown">
-                                <div id="header-login-panel" className='site_account-panel'>
-                                    <header className='site_account_header'>
-                                        <h2 className='site-account_title'>Đăng nhập tài khoản</h2>
-                                        <p className="site_account_legend">Nhập email và mật khẩu của bạn:</p>
-                                    </header>
+                            <Popup
+                                trigger={
+                                    <div className="header-user-account-text" onClick={handleClick}>
+                                        <i className="fa-solid fa-circle-user"></i>
+                                    </div>
+                                }
+                                position="bottom center"
+                                closeOnDocumentClick>
+                                {!isOpenned ?
+                                    <div className="header-user-account-dropdown" onClick={(e) => { handleClickClose(); e.stopPropagation() }}>
+                                        <div id="header-login-panel" className='site_account-panel'>
 
-                                </div>
-                            </div>
+                                            <div className="site_account_inner">
+                                                {current === 0 ? (
+                                                    <>
+                                                        <header className='site_account_header'>
+                                                            <h2 className='site-account_title'>Đăng nhập tài khoản</h2>
+                                                            <p className="site_account_legend">Nhập email và mật khẩu của bạn:</p>
+                                                        </header>
+                                                        <form action="/account/login" className="customer_login">
+                                                            <div className="customer_login_email">
+                                                                <input type="text" className='email' placeholder='Email' />
+                                                            </div>
+                                                            <div className="customer_login_password">
+                                                                <input type="text" className='password' placeholder='Password' />
+                                                            </div>
+                                                            <div className="site_recaptcha" style={{ color: 'rgb(180,180,180)', padding: '6px 0 0', fontSize: '13px', marginBottom: 12 }}>
+                                                                This site is protected by reCAPTCHA and the Google <a href='https://policies.google.com/privacy' style={{ color: 'blue' }} target="_blank" rel="noreferrer">Privacy Policy</a>  and <a href="https://policies.google.com/terms" style={{ color: 'blue' }} target="_blank" rel="noreferrer">Terms of Service</a>  apply.
+                                                            </div>
+                                                            <Button name='đăng nhập' />
+                                                        </form>
+                                                    </>
+                                                ) :
+                                                    (
+                                                        <>
+                                                            <header className='site_account_header'>
+                                                                <h2 className='site-account_title'>khôi phục mật khẩu</h2>
+                                                                <p className="site_account_legend">Nhập email của bạn:</p>
+                                                            </header>
+                                                            <form action="/account/recover" className="customer_login">
+                                                                <div className="customer_login_email">
+                                                                    <input type="text" className='email' placeholder='Email' />
+                                                                </div>
+                                                                <div className="site_recaptcha" style={{ color: 'rgb(180,180,180)', padding: '6px 0 0', fontSize: '13px', marginBottom: 12 }}>
+                                                                    This site is protected by reCAPTCHA and the Google <a href='https://policies.google.com/privacy' style={{ color: 'blue' }} target="_blank" rel="noreferrer">Privacy Policy</a>  and <a href="https://policies.google.com/terms" style={{ color: 'blue' }} target="_blank" rel="noreferrer">Terms of Service</a>  apply.
+                                                                </div>
+                                                                <Button name='khôi phục' />
+                                                            </form>
+                                                        </>
+                                                    )
+                                                }
+                                                {current < steps.length - 1 && (
+                                                    <div className="site_account_secondary">
+                                                        <p>Khách hàng mới?
+                                                            <Link to='/account/register' style={{ color: '#e85205' }}>&nbsp;Tạo tài khoản</Link>
+                                                        </p>
+                                                        <p>Quên mật khẩu?
+                                                            <button className="site-recover-password" onClick={() => next()}>&nbsp;Khôi phụ mật khẩu</button>
+                                                        </p>
+                                                    </div>
+                                                )}
+                                                {current > 0 && (
+                                                    <div className="site_account_secondary">
+                                                        <p>Bạn đã nhớ mật khẩu?
+                                                            <button className="site-recover-password" onClick={() => prev()}>&nbsp;Trở về đăng nhập</button>
+                                                        </p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className="header_action-auth" onClick={(e) => { handleClickClose(); e.stopPropagation() }}>
+                                        <div id="siteNave-account" className='site_account_info'>
+                                            <header className='site_account_header'>
+                                                <h2 className='site-account_title'>thông tin tài khoản</h2>
+                                            </header>
+                                            <ul>
+                                                <li><span>Ta Dat</span></li>
+                                                <li><Link to="/account">Tài khoản của tôi</Link></li>
+                                                <li><Link to="/account/update">Cập nhật tài khoản</Link></li>
+                                                <li><Link to="/account/logout">Đăng xuất</Link></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                }
+                            </Popup>
                         </div>
                         <div className="header-user-cart">
                             <Link to='/'>

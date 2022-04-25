@@ -167,15 +167,15 @@ a{
 }
 .header-user-account-dropdown{
     position: absolute;
-    top:40px;right:0;
+    top:7px;right:-85px;
     z-index: 1000;
     padding:20px 15px;
     background-color: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    height: 310px;
+    /* height: 310px; */
     width: 340px;
 }
-.header-user-account-dropdown::after{
+.header-user-account-dropdown::after,.header_action-auth::after{
     content:'';
     position: absolute;
     top: -10px;right: 20%;
@@ -185,6 +185,88 @@ a{
     border-color:transparent transparent #f5f5f5 transparent;
     border-style: solid;
 }
+
+.header-user-account-dropdown .site_account-panel header{
+    text-align: center;
+}
+.header-user-account-dropdown header h2{
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-size: 17px;
+    font-weight: 500;
+}
+.header-user-account-dropdown header p {
+    font-size: 12px;
+    color:rgb(147,154,159);
+    line-height: 21px;
+}
+.header-user-account-dropdown .site_account_inner .customer_login input{
+    border: none;
+    outline: none;
+    border: 1px solid rgb(212,214,216);
+    border-radius: 2px;
+    width: 100%;
+    background-color: rgb(232,240,254);
+    /* padding: 10px 0; */
+    font-size: 12px;
+    padding: 12px 10px;
+}
+.header-user-account-dropdown .site_account_inner .customer_login .customer_login_email{
+    margin-bottom: 12px;
+}
+.site_account_inner .site_captcha{
+    /* margin-bottom: 12px; */
+}
+
+.header-user-account-dropdown .site_account_inner .site_account_secondary{
+    margin-top: 16px;
+    font-size: 12px;
+}
+.site_account_inner .site_account_secondary{
+    text-align: center;
+}
+.site_account_inner .site_account_secondary .site-recover-password{
+    color: #e85205;
+    transition: color 0.2s ease-in-out;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+/* logged in */
+.header_action-auth{
+    position: absolute;
+    top:7px;right:-65px;
+    z-index: 1000;
+    padding:20px 15px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    width: auto;
+    min-width: 250px;
+}
+.site_account_info .site_account_header{
+    text-align: center;
+    border-bottom: 1px solid #ededed;
+    padding: 0 0 10px;
+    margin-bottom: 12px;
+}
+.site_account_info header h2{
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-size: 17px;
+    font-weight: 500;
+}
+.site_account_info ul li{
+    padding: 0 4px;
+    margin-bottom: 10px;
+}
+
+
+
+
 @keyframes rotate{
     from{
         transform: rotate(0);
