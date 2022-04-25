@@ -10,45 +10,10 @@ import Button from '../common/Button';
 
 const steps = [
     {
-        content: (
-            <>
-                <header className='site_account_header'>
-                    <h2 className='site-account_title'>Đăng nhập tài khoản</h2>
-                    <p className="site_account_legend">Nhập email và mật khẩu của bạn:</p>
-                </header>
-                <form action="/account/login" className="customer_login">
-                    <div className="customer_login_email">
-                        <input type="text" className='email' placeholder='Email' />
-                    </div>
-                    <div className="customer_login_password">
-                        <input type="text" className='password' placeholder='Password' />
-                    </div>
-                    <div className="site_recaptcha" style={{ color: 'rgb(180,180,180)', padding: '6px 0 0', fontSize: '13px', marginBottom: 12 }}>
-                        This site is protected by reCAPTCHA and the Google <a href='https://policies.google.com/privacy' style={{ color: 'blue' }} target="_blank" rel="noreferrer">Privacy Policy</a>  and <a href="https://policies.google.com/terms" style={{ color: 'blue' }} target="_blank" rel="noreferrer">Terms of Service</a>  apply.
-                    </div>
-                    <Button name='đăng nhập' />
-                </form>
-            </>
-        )
+        content: ''
     },
     {
-        content: (
-            <>
-                <header className='site_account_header'>
-                    <h2 className='site-account_title'>khôi phục mật khẩu</h2>
-                    <p className="site_account_legend">Nhập email của bạn:</p>
-                </header>
-                <form action="/account/recover" className="customer_login">
-                    <div className="customer_login_email">
-                        <input type="text" className='email' placeholder='Email' />
-                    </div>
-                    <div className="site_recaptcha" style={{ color: 'rgb(180,180,180)', padding: '6px 0 0', fontSize: '13px', marginBottom: 12 }}>
-                        This site is protected by reCAPTCHA and the Google <a href='https://policies.google.com/privacy' style={{ color: 'blue' }} target="_blank" rel="noreferrer">Privacy Policy</a>  and <a href="https://policies.google.com/terms" style={{ color: 'blue' }} target="_blank" rel="noreferrer">Terms of Service</a>  apply.
-                    </div>
-                    <Button name='khôi phục' />
-                </form>
-            </>
-        )
+        content: ''
     }
 ]
 const Header = () => {
