@@ -14,12 +14,14 @@ import QuangNinh from "../pages/Address/QuangNinh";
 import CaoBang from "../pages/Address/CaoBang";
 import Login from "../pages/Login";
 import Shirt from "../pages/Shirt";
+import Account from "../pages/Account";
 
 const RouterConfig = () => {
     const routes = useRoutes([
         { path: `${ROOT}`, element: <HomePage /> },
         { path: `${Products}`, element: <div>products</div> },
         // { path: `/collections/all`, element: <div>products</div> },
+        { path: `/account`, element: <Account /> },
         { path: '/account/login', element: <Login /> },
         { path: '/collections/sale75', element: <div>products</div> },
         { path: '/pages/hethongcuahang', element: <Address /> },

@@ -8,8 +8,9 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Containers from '../common/Container'
 
 import Button from '../common/Button';
-import axios from 'axios';
 import { notification } from 'antd'
+import { Logout } from '../../services'
+import * as api from '../../api/apiClient'
 
 const steps = [
     {
@@ -50,23 +51,16 @@ const Header = () => {
     // login
     const login = async (e) => {
         e.preventDefault();
-        await axios({
-            method: "POST",
-            url: 'http://localhost:5000/api/v1/authentication/login',
-            data: { Email: email, Password: password },
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+        await api.callApiHeaders("POST", 'authentication/login', { Email: email, Password: password })
             .then(res => {
                 notification.success({
                     message: 'Đăng nhập thành công!',
                     description: '',
                     className: 'login_success'
                 })
-                console.log(res.data.data.token)
                 localStorage.setItem('token', res.data.data.token)
-                navigate('/pages/huong-dan-chinh-sach')
+                localStorage.setItem('user_id', res.data.data.data[0].Id)
+                navigate('/account')
 
             })
             .catch(err => {
@@ -79,15 +73,15 @@ const Header = () => {
 
     }
     const auth = localStorage.getItem('token');
-    const logout = () => {
-        localStorage.removeItem('token');
-        notification.success({
-            message: 'Đăng xuất thành công!',
-            description: '',
-            className: 'logout-success'
-        })
-    }
-    console.log(auth)
+    // const logout = () => {
+    //     localStorage.removeItem('token');
+    //     localStorage.removeItem('user_id');
+    //     notification.success({
+    //         message: 'Đăng xuất thành công!',
+    //         description: '',
+    //         className: 'logout-success'
+    //     })
+    // }
     return (
         <div className='header'>
             <div className="header-topbar" id='header-top'>
@@ -107,51 +101,51 @@ const Header = () => {
                             </NavLink>
                                 <ul className="submenu">
                                     <li>
-                                        <NavLink to='/product'>Sale off 75%</NavLink>
+                                        <Link to='/product'>Sale off 75%</Link>
                                     </li>
                                     <li>
-                                        <NavLink to='/product'>Áo
+                                        <Link to='/product'>Áo
                                             <i className="fa-solid fa-angle-right icon-vertical"></i>
-                                        </NavLink>{/**ao */}
+                                        </Link>{/**ao */}
                                         <ul className="submenu2">
                                             <li>
-                                                <NavLink to='/product'>Áo thun</NavLink>
+                                                <Link to='/product'>Áo thun</Link>
                                             </li>
                                             <li>
-                                                <NavLink to='/product'>Áo polo</NavLink>
+                                                <Link to='/product'>Áo polo</Link>
                                             </li>
                                             <li>
-                                                <NavLink to='/product'>áo sơ mi</NavLink>
+                                                <Link to='/product'>áo sơ mi</Link>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <NavLink to='/product'>Quần
+                                        <Link to='/product'>Quần
                                             <i className="fa-solid fa-angle-right icon-vertical"></i>
-                                        </NavLink>
+                                        </Link>
                                         <ul className="submenu2">
                                             <li>
-                                                <NavLink to='/product'>quần short</NavLink>
+                                                <Link to='/product'>quần short</Link>
                                             </li>
                                             <li>
-                                                <NavLink to='/product'>quần jeans</NavLink>
+                                                <Link to='/product'>quần jeans</Link>
                                             </li>
                                             <li>
-                                                <NavLink to='/product'>quần jogger_quần dài</NavLink>
+                                                <Link to='/product'>quần jogger_quần dài</Link>
                                             </li>
                                             <li>
-                                                <NavLink to='/product'>quần tây_quần kaki</NavLink>
+                                                <Link to='/product'>quần tây_quần kaki</Link>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <NavLink to='/product'>Giày da</NavLink>
+                                        <Link to='/product'>Giày da</Link>
                                     </li>
                                     <li>
-                                        <NavLink to='/product'>Balo-túi sách</NavLink>
+                                        <Link to='/product'>Balo-túi sách</Link>
                                     </li>
                                     <li>
-                                        <NavLink to='/product'>Phụ kiện khác</NavLink>
+                                        <Link to='/product'>Phụ kiện khác</Link>
                                     </li>
                                 </ul>
                             </li>
@@ -175,16 +169,16 @@ const Header = () => {
                             </NavLink>{/* Address*/}
                                 <ul className="submenu">
                                     <li>
-                                        <NavLink to='/pages/cua-hang-ha-noi'>Hà nội</NavLink>
+                                        <Link to='/pages/cua-hang-ha-noi'>Hà nội</Link>
                                     </li>
                                     <li>
-                                        <NavLink to='/pages/cua-hang-bac-giang'>Bắc giang</NavLink>
+                                        <Link to='/pages/cua-hang-bac-giang'>Bắc giang</Link>
                                     </li>
                                     <li>
-                                        <NavLink to='/pages/cua-hang-hai-phong'>hải phòng</NavLink>
+                                        <Link to='/pages/cua-hang-hai-phong'>hải phòng</Link>
                                     </li>
                                     <li>
-                                        <NavLink to='/pages/cua-hang-thanh-hoa'>thanh hóa</NavLink>
+                                        <Link to='/pages/cua-hang-thanh-hoa'>thanh hóa</Link>
                                     </li>
                                     <li>
                                         <NavLink to='/pages/quang-ninh'>quảng ninh</NavLink>
@@ -199,16 +193,16 @@ const Header = () => {
                             </NavLink>{/*Hdan- Csach */}
                                 <ul className="submenu">
                                     <li>
-                                        <NavLink to='/pages/chinh-sach-doi-tra'>cs đổi trả</NavLink>
+                                        <Link to='/pages/chinh-sach-doi-tra'>cs đổi trả</Link>
                                     </li>
                                     <li>
-                                        <NavLink to='/pages/tk-ngan-hang'>tk ngân hàng</NavLink>
+                                        <Link to='/pages/tk-ngan-hang'>tk ngân hàng</Link>
                                     </li>
                                     <li>
-                                        <NavLink to='/'>kt đơn hàng</NavLink>
+                                        <Link to='/'>kt đơn hàng</Link>
                                     </li>
                                     <li>
-                                        <NavLink to='/'>Membership</NavLink>
+                                        <Link to='/'>Membership</Link>
                                     </li>
                                 </ul>
                             </li>
@@ -302,7 +296,7 @@ const Header = () => {
                                                 <li><span>Ta Dat</span></li>
                                                 <li><Link to="/account">Tài khoản của tôi</Link></li>
                                                 <li><Link to="/account/update">Cập nhật tài khoản</Link></li>
-                                                <li><Link to="/" onClick={logout}>Đăng xuất</Link></li>
+                                                <li><Link to="/" onClick={Logout}>Đăng xuất</Link></li>
                                             </ul>
                                         </div>
                                     </div>

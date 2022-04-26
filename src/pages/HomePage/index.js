@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Carousel } from "antd";
 import "antd/dist/antd.min.css";
@@ -7,12 +7,21 @@ import icon1 from "../../assets/images/service_icons/customerService.png";
 import icon2 from "../../assets/images/service_icons/throwback.png";
 import icon3 from "../../assets/images/service_icons/delivery.png";
 
+import img1 from "../../assets/images/slide/slideshow_1.png";
+import img2 from "../../assets/images/slide/slideshow_2.png";
+import img3 from "../../assets/images/slide/slideshow_3.png";
+
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CardItem from "../../components/CardItem";
 
 
 const HomePage = () => {
+  const image = [img1, img2, img3]
+  const token = JSON.parse(localStorage.getItem('token'))
+  useEffect(() => {
+
+  }, [])
   return (
     <>
       <Header />
@@ -54,21 +63,21 @@ const HomePage = () => {
             <NavLink to="/product">sản phẩm mới</NavLink>
           </h2>
           <div className="latest__products-lists">
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
           </div>
           <div className="moreItem--btn">
             <button>Xem thêm</button>
@@ -81,21 +90,21 @@ const HomePage = () => {
             <NavLink to="/product">sale up to 75%</NavLink>
           </h2>
           <div className="sale__products-lists">
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
-            <CardItem title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
           </div>
           <div className="moreItem--btn">
             <button>Xem thêm</button>
@@ -128,10 +137,10 @@ const HomePage = () => {
           </h2>
 
           <div className="blog--list">
-            <CardItem title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
-            <CardItem title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
-            <CardItem title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
-            <CardItem title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
+            <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
 
 
 
