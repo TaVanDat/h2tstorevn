@@ -26,6 +26,7 @@ const CardWrapper = styled.div`
         background: url(${(props) => props.imgHover}) no-repeat center;
         background-size:cover;
         cursor:pointer;
+        opacity:0.6;
     animation:${fadeAway} 0.7s linear;
 
     }
@@ -98,4 +99,4 @@ const BlogWrapper = styled.div`
   }
 `
 
-export {CardWrapper, BlogWrapper};
+export { CardWrapper, BlogWrapper };

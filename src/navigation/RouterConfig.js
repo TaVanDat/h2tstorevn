@@ -15,10 +15,12 @@ import CaoBang from "../pages/Address/CaoBang";
 import Login from "../pages/Login";
 import Shirt from "../pages/Shirt";
 import Account from "../pages/Account";
+import NotFound from "../pages/NotFound";
 
 const RouterConfig = () => {
     const routes = useRoutes([
         { path: `${ROOT}`, element: <HomePage /> },
+        { path: '/notfound', element: <NotFound /> },
         { path: `${Products}`, element: <div>products</div> },
         // { path: `/collections/all`, element: <div>products</div> },
         { path: `/account`, element: <Account /> },

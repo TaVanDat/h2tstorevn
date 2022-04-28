@@ -5,7 +5,7 @@ import img2 from "../../assets/images/slide/slideshow_2.png";
 import img3 from "../../assets/images/slide/slideshow_3.png";
 
 const CardItem = (props) => {
-  const { title, type, description, image } = props;
+  const { title, type, description, image, product_id, price } = props;
   const Images = [img1, img2, img3];
   const [img, setImg] = useState(image[0]);
 
@@ -17,7 +17,7 @@ const CardItem = (props) => {
       {
         {
           item: (
-            <CardWrapper img={img} imgHover={image[2]}>
+            <CardWrapper img={img} imgHover={image[1] ? image[1] : image[0]} data-id={product_id}>
               <div className="card--image"></div>
               <div className="card--title">
                 <p>{title}</p>
@@ -26,11 +26,11 @@ const CardItem = (props) => {
                 {image &&
                   image.map((item, index) => (
                     <div className="images__item" key={index}>
-                      <img src={item} onClick={handleSwitchImage} alt='some image444' />
+                      <img src={item} onClick={handleSwitchImage} alt='not' />
                     </div>
                   ))}
               </div>
-              <div className="card--cost">200.000$</div>
+              <div className="card--cost">{price}đ</div>
             </CardWrapper>
           ),
           blog: (
