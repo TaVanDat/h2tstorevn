@@ -5,6 +5,8 @@ import BreadCrumb from '../../components/common/BreadCrum';
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Containers from '../../components/common/Container';
+const urlImg = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/';
+
 const Bank = () => {
     return (
         <>
@@ -20,7 +22,7 @@ const Bank = () => {
                             <div className="content-page">
                                 <p>&nbsp;</p>
                                 <p>
-                                    <img src={require('../../assets/images/bank.png')} alt="" />
+                                    <img src={urlImg + 'bank.png'} alt="" />
                                 </p>
                                 <p>&nbsp;</p>
                                 <p>&nbsp;</p>

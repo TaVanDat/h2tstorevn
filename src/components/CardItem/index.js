@@ -1,12 +1,10 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { CardWrapper, BlogWrapper } from "./style";
-import img1 from "../../assets/images/slide/slideshow_1.png";
-import img2 from "../../assets/images/slide/slideshow_2.png";
-import img3 from "../../assets/images/slide/slideshow_3.png";
+import { Format } from "../../services";
 
 const CardItem = (props) => {
-  const { title, type, description, image, product_id, price } = props;
-  const Images = [img1, img2, img3];
+  const { title, type, description, image, product_id, salePrice, price, news_id } = props;
   const [img, setImg] = useState(image[0]);
 
   const handleSwitchImage = (e) => {
@@ -18,9 +16,9 @@ const CardItem = (props) => {
         {
           item: (
             <CardWrapper img={img} imgHover={image[1] ? image[1] : image[0]} data-id={product_id}>
-              <div className="card--image"></div>
+              <div className="card--image"><Link to={`/product/${product_id}`}></Link></div>
               <div className="card--title">
-                <p>{title}</p>
+                <p><Link to={`/product/${product_id}`}>{title}</Link></p>
               </div>
               <div className="images__list">
                 {image &&
@@ -30,16 +28,16 @@ const CardItem = (props) => {
                     </div>
                   ))}
               </div>
-              <div className="card--cost">{price}đ</div>
+              <div className="card--cost"><span style={{ color: 'rgb(249,76,67)' }}>{Format(salePrice)}</span>&ensp;<span style={{ color: 'rgb(147,147,147)' }}><del>{price && Format(price)}</del></span></div>
             </CardWrapper>
           ),
           blog: (
-            <BlogWrapper>
+            <BlogWrapper data-id={news_id}>
               <div className="blog--image">
-                <img src={image[0]} alt='hello xin chào các m'></img>
+                <Link to={`/product/${news_id}`}><img src={image[0]} alt='hello xin chào các m'></img></Link>
               </div>
               <div className="blog--title">
-                <p>{title}</p>
+                <p><Link to={`/product/${news_id}`}>{title}</Link></p>
               </div>
               <div className="blog--description">
                 <p>

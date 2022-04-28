@@ -22,7 +22,6 @@ import axios from "axios";
 const HomePage = () => {
   const navigate = useNavigate();
   const urlImg = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/';
-  const image = ["velvetembossedstriped1433_1.png", "UNIVERSAL1405_4.png", "UNIVERSAL1405_6.png"]
   const [productLatest, setProductLatest] = useState([])
   const [productSale, setProductSale] = useState([])
   const [newsLatest, setNewsLatest] = useState([])
@@ -31,9 +30,17 @@ const HomePage = () => {
     try {
       // const response = await api.callApiDefault('GET', 'product/latest')
       const response = await axios.get('http://localhost:5000/api/v1/product/latest')
+      const sale75 = await axios.get('http://localhost:5000/api/v1/product/sale75')
+      const news = await axios.get('http://localhost:5000/api/v1/news/latest')
       if (response && response.data) {
         setProductLatest(response.data.data.data);
-        setIsLoading(false);
+      }
+      if (sale75 && sale75.data) {
+        setProductSale(sale75.data.data.data)
+      }
+      if (news && news.data) {
+        setNewsLatest(news.data.data.data)
+        setIsLoading(false)
       }
     } catch (error) {
       navigate('/notfound')
@@ -76,103 +83,97 @@ const HomePage = () => {
           </div>
         </Carousel>
       </div>
-      <div style={{ paddingTop: "11.0625rem" }}>
-        {/* latest products section */}
-        <div className="latest__products">
-          <h2 className="latest__products--title title">
-            <NavLink to="/product">sản phẩm mới</NavLink>
-          </h2>
-          {isLoading ? <Space size="middle">
-            <Spin size="large" tip="Loading...">
-            </Spin>
-          </Space>
-            :
-            <Containers>
-              <div className="latest__products-lists">
-                {productLatest.map((item, index) => {//item.Image.map((itemImg, k) => { return url + itemImg })
+      <div style={{ paddingTop: "11.0625rem" }} className='homepage-wrapper'>
+        {isLoading ? <Space size="middle">
+          <Spin size="large" tip="Loading...">
+          </Spin>
+        </Space>
+          : <>
+            {/* latest products section */}
+            <div className="latest__products">
+              <h2 className="latest__products--title title">
+                <NavLink to="/product">sản phẩm mới</NavLink>
+              </h2>
 
-                  return (<CardItem key={item.Id} product_id={item.Id} title={item.Name} price={item.SalePrice} image={item.Image.map(item => { return (urlImg + item) })} type='item' />)
-                })
-                }
-              </div>
-              <div className="moreItem--btn">
-                <button>Xem thêm</button>
-              </div>
-            </Containers>
-          }
+              <Containers>
+                <div className="latest__products-lists">
+                  {productLatest.map((item, index) => {
+                    return (<CardItem key={item.Id} product_id={item.Id} title={item.Name} salePrice={item.SalePrice} image={item.Image.map(item => { return (urlImg + item) })} type='item' />)
+                  })
+                  }
+                </div>
+                <div className="moreItem--btn">
+                  <button>Xem thêm</button>
+                </div>
+              </Containers>
 
-        </div>
+            </div>
 
-        {/* sale products section */}
-        <div className="sale__products">
-          <h2 className="sale__products--title title">
-            <NavLink to="/product">sale up to 75%</NavLink>
-          </h2>
-          <div className="sale__products-lists">
-            <CardItem image={image.map(item => { return (urlImg + item) })} title="chào e cô gái làm hôm" type='item' />
-            {/* stripesblue1447_2.png
-            https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/velvetembossedstriped1433_1_dohfff.png
-            https://res.cloudinary.com/dbfjceflf/image/upload/v1651134901/h2tstore/UNIVERSAL1405_4_gro9ni.png
-            https://res.cloudinary.com/dbfjceflf/image/upload/v1651134900/h2tstore/UNIVERSAL1405_6_seajik.png 
-            https://res.cloudinary.com/dbfjceflf/image/upload/v1651138239/l5znz1aqpnriub2uwjuo.png
-            
+            {/* sale products section */}
+            <div className="sale__products">
+              <h2 className="sale__products--title title">
+                <NavLink to="/product">sale up to 75%</NavLink>
+              </h2>
+              <Containers>
+                <div className="sale__products-lists">
+                  {productSale.map((item, index) => {
+                    return (<CardItem key={item.Id} product_id={item.Id} title={item.Name} price={item.Price} salePrice={item.SalePrice} image={item.Image.map(item => { return (urlImg + item) })} type='item' />)
+                  })
+                  }
+                  {/* <CardItem image={image.map(item => { return (urlImg + item) })} title="chào e cô gái làm hôm" type='item' /> */}
+                  {/* stripesblue1447_2.png
             */}
-            {/* <img src={require('../../assets/images/0566_1.png')} alt="" /> */}
-            {/* <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='item' /> */}
-          </div>
-          <div className="moreItem--btn">
-            <button>Xem thêm</button>
-          </div>
-        </div>
+                </div>
+                <div className="moreItem--btn">
+                  <button>Xem thêm</button>
+                </div>
+              </Containers>
+            </div>
 
-        {/* service section */}
-        <div className="services">
-          <div className="services__delivery">
-            <img src={icon1} alt='some image4' />
-            <p>Free hàng trên 500k</p>
-          </div>
+            {/* service section */}
+            <div className="services">
+              <div className="services__delivery">
+                <img src={icon1} alt='some image4' />
+                <p>Free hàng trên 500k</p>
+              </div>
 
-          <div className="services__contact">
-            <img src={icon2} alt='some image2' />
-            <p>Tổng đài tư vấn miễn phí</p>
-          </div>
+              <div className="services__contact">
+                <img src={icon2} alt='some image2' />
+                <p>Tổng đài tư vấn miễn phí</p>
+              </div>
 
-          <div className="services__throwback">
-            <img src={icon3} alt='some image4' />
-            <p>Đổi hàng trong vòng 7 ngày</p>
-          </div>
-        </div>
+              <div className="services__throwback">
+                <img src={icon3} alt='some image4' />
+                <p>Đổi hàng trong vòng 7 ngày</p>
+              </div>
+            </div>
 
-        {/* blog section */}
+            {/* blog section */}
 
-        <div className="blog">
-          <h2 className="blog__products--title title">
-            <NavLink to="/product">h2t blog</NavLink>
-          </h2>
-
-          <div className="blog--list">
-            {/* <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
+            <div className="blog">
+              <h2 className="blog__products--title title">
+                <NavLink to="/product">h2t blog</NavLink>
+              </h2>
+              <Containers>
+                <div className="blog--list">
+                  {newsLatest.map((item, index) => {
+                    return (<CardItem type='blog' key={item.Id} news_id={item.Id} title={item.Name} description={item.Content} image={(item.Image.split(',')).map(itemNew => { return (urlImg + itemNew) })} />)
+                  })
+                  }
+                  {/* <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
             <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
             <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
             <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " /> */}
 
 
 
-          </div>
-        </div>
+                </div>
+
+              </Containers>
+            </div>
+
+          </>
+        }
       </div>
       <Footer />
     </>

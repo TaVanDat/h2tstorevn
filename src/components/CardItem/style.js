@@ -16,12 +16,15 @@ const fadeAway = keyframes`
 const CardWrapper = styled.div`
   width: calc((100% - 15rem) / 5);
   .card--image {
-    background: url(${(props) => props.img}) no-repeat center;
-    background-size:cover;
     width: 100%;
     height: 16.4375rem;
-    transition:ease-out 0.3s;
-
+    a{
+      display:block;
+      background: url(${(props) => props.img}) no-repeat center;
+      background-size:cover;
+      width: 100%;
+      height: 100%;
+      transition:ease-out 0.3s;
     &:hover{
         background: url(${(props) => props.imgHover}) no-repeat center;
         background-size:cover;
@@ -29,6 +32,7 @@ const CardWrapper = styled.div`
         opacity:0.6;
     animation:${fadeAway} 0.7s linear;
 
+    }
     }
   }
   .card--title{

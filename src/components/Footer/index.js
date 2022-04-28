@@ -5,6 +5,8 @@ import './style.css';
 import { Link } from 'react-router-dom';
 
 import Containers from '../common/Container';
+const urlImg = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/';
+
 const Footer = () => {
     return (
         <footer className='footer'>
@@ -18,7 +20,7 @@ const Footer = () => {
                                 Mã số thuế: 0106533311, ngày cấp ĐKKD 08/05/2014. Nơi cấp: Sở kế hoạch và đầu tư Hà Nội.</p>
                             <div className="logo-footer">
                                 <a href="/" target="_blank" rel="noopener noreferrer">
-                                    <img src={require('../../assets/images/logo_bct.png')} width={150} alt="Bộ công thương" />
+                                    <img src={urlImg + 'logo_bct.png'} width={150} alt="Bộ công thương" />
                                 </a>
                             </div>
                         </div>

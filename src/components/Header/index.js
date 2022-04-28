@@ -11,6 +11,7 @@ import Button from '../common/Button';
 import { notification } from 'antd'
 import { Logout } from '../../services'
 import * as api from '../../api/apiClient'
+const urlImg = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/';
 
 const steps = [
     {
@@ -91,7 +92,7 @@ const Header = () => {
                 <div className="header-bottom">
                     <div className="header-logo">
                         <a href="/" className="home-link">
-                            <img src={require("../../assets/images/logoH2T.png")} alt="H2T Shop" title="H2T Shop" />
+                            <img src={urlImg + "logoH2T.png"} alt="H2T Shop" title="H2T Shop" />
                         </a>
                     </div>
                     <div className="header-nav">

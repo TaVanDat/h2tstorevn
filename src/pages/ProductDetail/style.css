@@ -1,0 +1,27 @@
+.product-detail{
+    padding: 30px 0;
+    width: 100%;
+}
+.product-detail .product-detail-wrapper{
+    width: 100%;
+    margin:0 -15px;
+}
+.product-detail .product-detail-wrapper .product-detail-main{
+    padding: 0 15px;
+}
+
+
+.product-detail .product-detail-wrapper .product-detail-main .product-content-img{
+    position: sticky;
+    top: 70px;
+    width: calc(100%/3 + 25%);
+    padding:0 15px;
+}
+.product-detail .product-detail-wrapper .product-detail-main .product-gallery{
+    display: flex;
+    
+}
+/* sc-jSMfEi */
+/* .product-detail .product-detail-wrapper .product-detail-main .product-gallery div {
+    
+} */

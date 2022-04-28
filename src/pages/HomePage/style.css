@@ -18,8 +18,12 @@
 .slick-dots li.slick-active{
     background-color: #fff;
 }
-
-.latest__products .latest__products-lists{
+.homepage-wrapper #container{
+    margin: 50% auto;
+    display: flex;
+    justify-content: center;
+}
+.latest__products .latest__products-lists,.sale__products .sale__products-lists{
     /* width: 100%;  */
     display:flex;
     /* flex-direction: row; */
@@ -27,13 +31,9 @@
     /* margin: 0 -15px; */
     flex-wrap: wrap;
 }
-.latest__products .container{
-    margin: 50% auto;
-    display: flex;
-    justify-content: center;
-}
+
 /* sc-bczRLJ deeoNQ */
-.latest__products .latest__products-lists .sc-bczRLJ{
+.latest__products .latest__products-lists .sc-bczRLJ,.sale__products .sale__products-lists .sc-bczRLJ{
     width: calc(20% - 30px);
     margin: 0 15px 10px;
 }

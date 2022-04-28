@@ -16,12 +16,14 @@ import Login from "../pages/Login";
 import Shirt from "../pages/Shirt";
 import Account from "../pages/Account";
 import NotFound from "../pages/NotFound";
+import Detail from "../pages/ProductDetail";
 
 const RouterConfig = () => {
     const routes = useRoutes([
         { path: `${ROOT}`, element: <HomePage /> },
         { path: '/notfound', element: <NotFound /> },
-        { path: `${Products}`, element: <div>products</div> },
+        { path: `/product/:id`, element: <Detail /> },
+        // { path: `/news/:id`, element: <Detail /> },
         // { path: `/collections/all`, element: <div>products</div> },
         { path: `/account`, element: <Account /> },
         { path: '/account/login', element: <Login /> },
