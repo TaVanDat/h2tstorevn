@@ -2,16 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import './style.css'
-const Button = props => {
+const CustomButton = props => {
     return (
-        <button id="custom-btn" onClick={props.onClick}>{props.name}</button>
+        <button style={{ ...props.style }} id="custom-btn" onClick={props.onClick} disabled={props.disabled}>{props.name}</button>
     )
 }
 
-Button.propTypes = {
+CustomButton.propTypes = {
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func,
+    disabled: PropTypes.bool,
 
 }
 
-export default Button
+export default CustomButton

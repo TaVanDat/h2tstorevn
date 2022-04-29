@@ -98,7 +98,7 @@ const HomePage = () => {
               <Containers>
                 <div className="latest__products-lists">
                   {productLatest.map((item, index) => {
-                    return (<CardItem key={item.Id} product_id={item.Id} title={item.Name} salePrice={item.SalePrice} image={item.Image.map(item => { return (urlImg + item) })} type='item' />)
+                    return (<CardItem key={item.Id} quantity={item.Quantity} product_id={item.Id} title={item.Name} salePrice={item.SalePrice} price={item.Price} image={item.Image.map(item => { return (urlImg + item) })} type='item' />)
                   })
                   }
                 </div>
@@ -117,7 +117,7 @@ const HomePage = () => {
               <Containers>
                 <div className="sale__products-lists">
                   {productSale.map((item, index) => {
-                    return (<CardItem key={item.Id} product_id={item.Id} title={item.Name} price={item.Price} salePrice={item.SalePrice} image={item.Image.map(item => { return (urlImg + item) })} type='item' />)
+                    return (<CardItem key={item.Id} quantity={item.Quantity} product_id={item.Id} title={item.Name} price={item.Price} salePrice={item.SalePrice} image={item.Image.map(item => { return (urlImg + item) })} type='item' />)
                   })
                   }
                   {/* <CardItem image={image.map(item => { return (urlImg + item) })} title="chào e cô gái làm hôm" type='item' /> */}

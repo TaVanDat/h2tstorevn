@@ -7,7 +7,7 @@ import Popup from 'reactjs-popup';
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Containers from '../common/Container'
 
-import Button from '../common/Button';
+import CustomButton from '../common/Button';
 import { notification } from 'antd'
 import { Logout } from '../../services'
 import * as api from '../../api/apiClient'
@@ -245,7 +245,7 @@ const Header = () => {
                                                             <div className="site_recaptcha" style={{ color: 'rgb(180,180,180)', padding: '6px 0 0', fontSize: '13px', marginBottom: 12 }}>
                                                                 This site is protected by reCAPTCHA and the Google <a href='https://policies.google.com/privacy' style={{ color: 'blue' }} target="_blank" rel="noreferrer">Privacy Policy</a>  and <a href="https://policies.google.com/terms" style={{ color: 'blue' }} target="_blank" rel="noreferrer">Terms of Service</a>  apply.
                                                             </div>
-                                                            <Button name='đăng nhập' />
+                                                            <CustomButton name='đăng nhập' />
                                                         </form>
                                                     </>
                                                 ) :
@@ -262,7 +262,7 @@ const Header = () => {
                                                                 <div className="site_recaptcha" style={{ color: 'rgb(180,180,180)', padding: '6px 0 0', fontSize: '13px', marginBottom: 12 }}>
                                                                     This site is protected by reCAPTCHA and the Google <a href='https://policies.google.com/privacy' style={{ color: 'blue' }} target="_blank" rel="noreferrer">Privacy Policy</a>  and <a href="https://policies.google.com/terms" style={{ color: 'blue' }} target="_blank" rel="noreferrer">Terms of Service</a>  apply.
                                                                 </div>
-                                                                <Button name='khôi phục' />
+                                                                <CustomButton name='khôi phục' />
                                                             </form>
                                                         </>
                                                     )
