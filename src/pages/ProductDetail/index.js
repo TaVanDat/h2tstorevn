@@ -114,7 +114,7 @@ const Detail = props => {
                                         {productIdRef.current.SalePrice !== productIdRef.current.Price &&
                                             <span className="percent-sale">{100 - Math.round((productIdRef.current.SalePrice / productIdRef.current.Price * 100).toFixed(1))}%</span>
                                         }
-                                        <span className="sale-price">{Format(productIdRef.current.SalePrice)}</span>&ensp;<span className="price"><del>{Format(productIdRef.current.Price)}</del></span>
+                                        <span className="sale-price">{Format(productIdRef.current.SalePrice)}</span>&ensp;<span className="price"><del>{productIdRef.current.Price !== productIdRef.current.SalePrice && Format(productIdRef.current.Price)}</del></span>
                                     </div>
                                     <Form
                                         name="validate_other"

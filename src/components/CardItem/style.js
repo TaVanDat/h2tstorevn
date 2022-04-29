@@ -66,8 +66,16 @@ const CardWrapper = styled.div`
     }
     }
   }
+  
   .card--title{
-    margin-top:1.4rem
+    margin-top:1.4rem;
+    a{
+      
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    }
   }
   
   .card--cost{

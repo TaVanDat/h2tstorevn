@@ -25,12 +25,12 @@ const CardItem = (props) => {
         {
           item: (
             <CardWrapper img={img} imgHover={image[1] ? image[1] : image[0]} data-id={product_id}>
-              <div className="card--image"><a href={`/product/${product_id}`}>
+              <div className="card--image"><a href={`/product/${product_id}`} title={title}>
                 {quantity === 0 && <span className="pro-sale-out">Hết hàng</span>}
                 {salePrice !== price && <span className="pro-sale-percent">{100 - Math.round((salePrice / price * 100).toFixed(1))}%</span>}
               </a></div>
               <div className="card--title">
-                <p><a href={`/product/${product_id}`}>{title}</a></p>
+                <p><a href={`/product/${product_id}`} title={title}>{title}</a></p>
               </div>
               <div className="images__list">
                 {image &&

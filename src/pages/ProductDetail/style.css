@@ -280,4 +280,5 @@
 .product-detail .list-productRelated .content-product-list{
     display: flex;
     flex-wrap: wrap;
+    
 }
