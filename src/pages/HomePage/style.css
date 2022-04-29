@@ -46,14 +46,19 @@
     font-weight: 500;
 }
 
-.latest__products .moreItem--btn{
+.homepage-wrapper .moreItem--btn{
     text-align: center;
 }
-.latest__products .moreItem--btn button{
+.homepage-wrapper .moreItem--btn button{
     padding:0.5rem 0.9375rem;
     border:1px solid;
     outline: none;
     background-color: transparent;
+    transition: all 0.4s;
+}
+.homepage-wrapper .moreItem--btn button:hover{
+    background-color: #000;
+    color:#fff;
 }
 
 
@@ -68,9 +73,13 @@
     justify-content:space-between;
     flex-wrap: wrap;
 }
+.sale__products .sale__products-header{
+    text-align: center;
+    margin-bottom: 2.615rem;
+
+}
 .title{
     text-transform: uppercase;
-    margin-bottom: 2.615rem;
     text-align: center;
     font-size: 2.31rem;
     font-weight: 500;

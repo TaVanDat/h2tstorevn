@@ -1,11 +1,11 @@
 /* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
-import useStateRef from 'react-usestateref'
+// import useStateRef from 'react-usestateref'
 
 import "antd/dist/antd.min.css";
 import "./style.css";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import { Carousel, Spin, Space } from "antd";
 
 import icon1 from "../../assets/images/service_icons/customerService.png";
@@ -111,22 +111,22 @@ const HomePage = () => {
 
             {/* sale products section */}
             <div className="sale__products">
-              <h2 className="sale__products--title title">
-                <NavLink to="/product">sale up to 75%</NavLink>
-              </h2>
+              <div className="sale__products-header">
+                <h2 className="sale__products--title title">
+                  <NavLink to="/collections/sale75">sale up to 75%</NavLink>
+                </h2>
+                <Link to='/collections/sale75'>Xem thêm &gt;&gt;</Link>
+              </div>
               <Containers>
                 <div className="sale__products-lists">
                   {productSale.map((item, index) => {
                     return (<CardItem key={item.Id} quantity={item.Quantity} product_id={item.Id} title={item.Name} price={item.Price} salePrice={item.SalePrice} image={item.Image.map(item => { return (urlImg + item) })} type='item' />)
                   })
                   }
-                  {/* <CardItem image={image.map(item => { return (urlImg + item) })} title="chào e cô gái làm hôm" type='item' /> */}
                   {/* stripesblue1447_2.png
             */}
                 </div>
-                <div className="moreItem--btn">
-                  <button>Xem thêm</button>
-                </div>
+
               </Containers>
             </div>
 
@@ -160,15 +160,10 @@ const HomePage = () => {
                     return (<CardItem type='blog' key={item.Id} news_id={item.Id} title={item.Name} description={item.Content} image={(item.Image.split(',')).map(itemNew => { return (urlImg + itemNew) })} />)
                   })
                   }
-                  {/* <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " />
-            <CardItem image={image} title="chào e cô gái làm hôm" type='blog' description="cùngkg flkfkf fkfkf fkfkfkf fkfkf fkfk fkfkf fkf fkf fkf fkf kf fkf fkf kf fkf fkf " /> */}
-
-
-
                 </div>
-
+                <div className="moreItem--btn">
+                  <button>Xem thêm</button>
+                </div>
               </Containers>
             </div>
 
