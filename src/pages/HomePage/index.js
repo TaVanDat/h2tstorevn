@@ -84,10 +84,7 @@ const HomePage = () => {
         </Carousel>
       </div>
       <div style={{ paddingTop: "11.0625rem" }} className='homepage-wrapper'>
-        {isLoading ? <Space size="middle">
-          <Spin size="large" tip="Loading...">
-          </Spin>
-        </Space>
+        {isLoading ? <Spin className='spin-loading' size="large" tip="Loading..." />
           : <>
             {/* latest products section */}
             <div className="latest__products">
@@ -103,7 +100,7 @@ const HomePage = () => {
                   }
                 </div>
                 <div className="moreItem--btn">
-                  <button>Xem thêm</button>
+                  <button><Link to='/collections/new-arrival'>Xem thêm</Link></button>
                 </div>
               </Containers>
 
@@ -162,7 +159,7 @@ const HomePage = () => {
                   }
                 </div>
                 <div className="moreItem--btn">
-                  <button>Xem thêm</button>
+                  <button><Link to='/blogs/news'>Xem thêm</Link></button>
                 </div>
               </Containers>
             </div>

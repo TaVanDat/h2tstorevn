@@ -17,6 +17,10 @@ import Shirt from "../pages/Shirt";
 import Account from "../pages/Account";
 import NotFound from "../pages/NotFound";
 import Detail from "../pages/ProductDetail";
+import AoQuan from "../pages/Product/AoQuan";
+import Category from "../pages/Product/Category";
+import NewArrivals from "../pages/Product/NewArrivals";
+import AllProduct from "../pages/Product";
 
 const RouterConfig = () => {
     const routes = useRoutes([
@@ -24,7 +28,12 @@ const RouterConfig = () => {
         { path: '/notfound', element: <NotFound /> },
         { path: `/product/:id`, element: <Detail /> },
         // { path: `/news/:id`, element: <Detail /> },
-        // { path: `/collections/all`, element: <div>products</div> },
+        { path: `/collections/all`, element: <AllProduct /> },
+        { path: `/collections/:ao_quan_sale`, element: <AoQuan /> },
+        // { path: `/collections/quan`, element: <AoQuan /> },
+        { path: `/collections/category/:id`, element: <Category /> },
+        { path: `/collections/new-arrival`, element: <NewArrivals /> },
+        { path: `/collections/quan`, element: <div>products</div> },
         { path: `/account`, element: <Account /> },
         { path: '/account/login', element: <Login /> },
         { path: '/collections/sale75', element: <div>products</div> },

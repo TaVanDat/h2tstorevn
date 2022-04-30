@@ -92,9 +92,9 @@ const Detail = props => {
     return (
         <>
             <Header />
-            <BreadCrumb number={3} name='TK Ngân hàng' />
+            <BreadCrumb number={3} name={productIdRef.current.Name} />
             <div className="product-detail">
-                {isLoading ? <Spin tip="Loading..." type="large" /> :
+                {isLoading ? <Spin className='spin-loading' size="large" tip="Loading..." /> :
                     <Containers>
                         <div className="product-detail-wrapper">
                             <div className="product-detail-main">
@@ -288,7 +288,7 @@ const Detail = props => {
                                 {
                                     productRelativeRef.current
                                     && productRelativeRef.current.map((item) => {
-                                        return (<CardItem key={item.Id} quantity={item.Quantity} product_id={item.Id} title={item.Name} price={item.Price} salePrice={item.SalePrice} image={item.Image.map(item => { return (url + item) })} type='item' />)
+                                        return (<CardItem key={item.Id} quantity={item.Quantity} product_id={item.Id} title={item.Name} price={item.Price} salePrice={item.SalePrice} image={item.Image && item.Image.filter((itemFilter, index,) => { if (index <= 1) return (itemFilter) }).map(itemMap => { return (url + itemMap) })} type='item' />)
                                     })
                                 }
                             </div>

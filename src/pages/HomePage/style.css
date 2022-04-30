@@ -18,10 +18,19 @@
 .slick-dots li.slick-active{
     background-color: #fff;
 }
+.homepage-wrapper{
+    position: relative;
+}
 .homepage-wrapper #container{
     margin: 50% auto;
     display: flex;
     justify-content: center;
+}
+.spin-loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 .latest__products .latest__products-lists,.sale__products .sale__products-lists{
     /* width: 100%;  */
@@ -58,7 +67,10 @@
 }
 .homepage-wrapper .moreItem--btn button:hover{
     background-color: #000;
+}
+.homepage-wrapper .moreItem--btn button:hover a{
     color:#fff;
+
 }
 
 

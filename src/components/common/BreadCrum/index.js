@@ -15,7 +15,7 @@ const BreadCrumb = (props) => {
                         <Link to='/'>Trang chủ</Link>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
-                        <Link to='/'>Danh mục</Link>
+                        <Link to='/collections/all'>Danh mục</Link>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
                         <span>{props.name}</span>
