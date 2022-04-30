@@ -13,15 +13,15 @@ import { Pagination, Spin } from 'antd';
 import CardItem from '../../components/CardItem';
 
 import axios from 'axios';
+import { useSearchParams } from 'react-router-dom'
 
 
 const SearchPage = () => {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const [product, setProduct, productRef] = useStateRef([]);
     const url = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651304496/h2tstore/';
-    const banner = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651304496/h2tstore/banner/banner-all.png';
     const [isLoading, setIsLoading] = useState(true);
-    const [selectType, setSelectType, selectTypeRef] = useStateRef('')
     const [pagination, setPagination] = useState({
         page: 1,
         page_size: 15,
@@ -31,11 +31,20 @@ const SearchPage = () => {
     const [filters, setFilters] = useState({
         page_size: 15,
         page: 1,
+        q: searchParams.get('q'),
     })
+    useEffect(() => {
+        if (searchParams.get('q')) {
+            setFilters({
+                ...filters,
+                q: searchParams.get('q')
+            })
+        }
+    }, [searchParams])
     const fetchData = async () => {
         try {
             const paramString = queryString.stringify(filters)
-            const response = await axios.get(`http://localhost:5000/api/v1/product/list?${paramString}`)
+            const response = await axios.get(`http://localhost:5000/api/v1/search/all?${paramString}`)
             if (response && response.data) {
                 setProduct(response.data.data.data);
                 setPagination(response.data.data.pagination);
@@ -44,14 +53,6 @@ const SearchPage = () => {
         } catch (error) {
             navigate('/notfound')
         }
-    }
-    const handleSelect = (e) => {
-        setSelectType(e.target.value)
-        setFilters({
-            ...filters,
-            title: selectTypeRef.current.split('-')[0],
-            type: selectTypeRef.current.split('-')[1],
-        })
     }
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -65,29 +66,12 @@ const SearchPage = () => {
                 :
                 <Containers>
                     <div className="heading-collection">
-                        <div className="heading-collection_left">
-                            <h1 className="title">
-                                Tất cả sản phẩm
-                            </h1>
-                        </div>
-
-                        <div className="heading-collection_right">
-                            <div className="option browse-tags">
-                                <label className="lb-filter hide" htmlFor="sort-by"></label>
-                                <span className="custom-dropdown custom-dropdown--grey">
-                                    <select className="sort-by custom-dropdown__select" onChange={(e) => handleSelect(e)}>
-                                        <option value="Price-asc" >Giá: Tăng dần</option>
-                                        <option value="Price-desc" >Giá: Giảm dần</option>
-                                        <option value="Name-asc" >Tên: A-Z</option>
-                                        <option value="Name-desc" >Tên: Z-A</option>
-                                        <option value="CreatedAt-asc" >Cũ nhất</option>
-                                        <option value="CreatedAt-desc" >Mới nhất</option>
-                                        {/* <option value="best-selling" >Bán chạy nhất</option> */}
-                                    </select>
-                                </span>
-                            </div>
+                        <div className="heading-page">
+                            <h1>Tìm kiếm</h1>
+                            <p className="subtxt">Có <span>{pagination.totalRows} sản phẩm</span> cho tìm kiếm</p>
                         </div>
                     </div>
+                    <p className="subtext-result">	Kết quả tìm kiếm cho  <strong>"{filters.q}"</strong>.&ensp;{productRef.current.length === 0 && <strong>Không có</strong>}</p>
                     <div className="content-product-list">
                         {productRef.current && productRef.current.map((item) => {
                             return (
@@ -95,15 +79,17 @@ const SearchPage = () => {
                         })
                         }
                     </div>
-                    <div className="product-pagination">
-                        <Pagination
-                            size='small'
-                            total={pagination.totalRows}
-                            pageSize={pagination.page_size}
-                            showSizeChanger={false}
-                            onChange={(current) => setFilters({ ...filters, page: current })}
-                        />
-                    </div>
+                    {productRef.current.length !== 0 &&
+                        <div className="product-pagination">
+                            <Pagination
+                                size='small'
+                                total={pagination.totalRows}
+                                pageSize={pagination.page_size}
+                                showSizeChanger={false}
+                                onChange={(current) => setFilters({ ...filters, page: current })}
+                            />
+                        </div>
+                    }
                 </Containers>
             }
             <Footer />

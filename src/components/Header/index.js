@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 
 import './style.css'
 
+import queryString from 'query-string'
 import Popup from 'reactjs-popup';
 
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Containers from '../common/Container'
 
 import CustomButton from '../common/Button';
-import { notification } from 'antd'
+import { Form, Input, notification } from 'antd'
 import { Logout } from '../../services'
 import * as api from '../../api/apiClient'
 const urlImg = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/';
@@ -23,16 +24,18 @@ const steps = [
 ]
 const Header = () => {
     const [isOpenned, setIsOpenned] = useState(false);
+    const [drop, setIsDrop] = useState(false);
     const [current, setCurrent] = React.useState(0);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [search, setSearch] = useState('')
     const navigate = useNavigate();
     // open dropdown account
     const handleClick = () => {
         auth ? setIsOpenned(wasOpened => !wasOpened) : setIsOpenned(wasOpened => wasOpened)
     }
     const handleClickClose = () => (
-        setIsOpenned(wasOpened => wasOpened)
+        setIsOpenned(wasOpened => !wasOpened)
     )
     // slide login => recover
     const next = () => {
@@ -48,6 +51,9 @@ const Header = () => {
     }
     const handlePassword = (e) => {
         setPassword(e.target.value)
+    }
+    const handleSearchForm = (e) => {
+        setSearch(e.target.value)
     }
     // login
     const login = async (e) => {
@@ -74,15 +80,17 @@ const Header = () => {
 
     }
     const auth = localStorage.getItem('token');
-    // const logout = () => {
-    //     localStorage.removeItem('token');
-    //     localStorage.removeItem('user_id');
-    //     notification.success({
-    //         message: 'Đăng xuất thành công!',
-    //         description: '',
-    //         className: 'logout-success'
-    //     })
-    // }
+    const onFinish = (values) => {
+        console.log(values.q)
+        const paramString = queryString.stringify({ q: values.q })
+        navigate(`/search?${paramString}`)
+    };
+    const handleSearch = (values) => {
+        const paramString = queryString.stringify({ q: values.target.value })
+        console.log(values.target.value)
+        navigate(`/search?${paramString}`)
+    }
+
     return (
         <div className='header'>
             <div className="header-topbar" id='header-top'>
@@ -210,11 +218,71 @@ const Header = () => {
                         </nav>
                     </div>
                     <div className="header-user">
-                        <div className="header-user-search">
-                            <Link to='/'>
-                                <i className="fa-solid fa-magnifying-glass"></i>
-                            </Link>
+                        <div className="header-user-search" style={{ cursor: 'pointer' }}>
+                            <Popup trigger={<i className="fa-solid fa-magnifying-glass"></i>}
+                                position='bottom right'
+                            >
+
+                                {(close) => (
+                                    <>
+                                        <div className="search-form">
+                                            <div className="btn-arrow"></div>
+                                            <p className="title-search">Tìm kiếm</p>
+                                            <div className="form-site">
+
+                                                <Form
+                                                    name="basic"
+                                                    onFinish={(e) => { onFinish(e); close() }}
+                                                    autoComplete="off"
+                                                >
+                                                    <Form.Item
+                                                        name="q"
+                                                    >
+                                                        <Input id='inputSearchAuto' placeholder='Tìm kiếm sản phẩm...' />
+                                                    </Form.Item>
+                                                    <button className="btn-search btn" id="search-header-btn" aria-label="Tìm kiếm">
+                                                        <i className="fa-solid fa-magnifying-glass"></i>
+                                                    </button>
+                                                </Form>
+                                            </div>
+                                        </div>
+                                    </>
+
+                                )}
+                            </Popup>
+                            {/* <Popup
+                                trigger={
+                                    <i className="fa-solid fa-magnifying-glass"></i>
+                                }
+                            position="bottom center"
+                            >
+                                {(close) => {
+
+                                    <div className="header-user-account-dropdown-search drop-search" style={{ zIndex: 1000 }}>
+                                        <div id="header-login-panel" className='site_account-panel'>
+                                            <div className="site_account_inner">
+                                                <p className='site-account_title search'>Tìm kiếm</p>
+                                                <Form
+                                                    name="basic"
+                                                    onFinish={onFinish}
+                                                    autoComplete="off"
+                                                >
+                                                    <Form.Item
+                                                        name="q"
+                                                    >
+                                                        <Input id='inputSearchAuto' placeholder='Tìm kiếm sản phẩm...' />
+                                                    </Form.Item>
+                                                    <button className="btn-search btn" id="search-header-btn" aria-label="Tìm kiếm">
+                                                        <i className="fa-solid fa-magnifying-glass"></i>
+                                                    </button>
+                                                </Form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }}
+                            </Popup> */}
                         </div>
+
                         <div className="header-user-account">
                             <Popup
                                 trigger={
@@ -305,14 +373,30 @@ const Header = () => {
                             </Popup>
                         </div>
                         <div className="header-user-cart">
-                            <Link to='/'>
-                                <i className="fa-solid fa-bag-shopping"></i>
-                            </Link>
+                            {/* <Link to='/'> */}
+                            {/* <i className="fa-solid fa-bag-shopping"></i> */}
+                            {/* </Link> */}
+                            <Popup trigger={<i className="fa-solid fa-bag-shopping"></i>}>
+                                {(close) => (
+                                    <form>
+                                        <input type='text' placeholder='tim' />
+                                        <button
+                                            className="button"
+                                            onClick={() => {
+                                                console.log("modal closed ");
+                                                close()
+                                            }}
+                                        >
+                                            close modal
+                                        </button>
+                                    </form>
+                                )}
+                            </Popup>
                         </div>
                     </div>
-                </div>
-            </Containers>
-        </div>
+                </div >
+            </Containers >
+        </div >
     )
 }
 

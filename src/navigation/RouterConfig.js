@@ -21,6 +21,7 @@ import AoQuan from "../pages/Product/AoQuan";
 import Category from "../pages/Product/Category";
 import NewArrivals from "../pages/Product/NewArrivals";
 import AllProduct from "../pages/Product";
+import SearchPage from "../pages/SearchPage";
 
 const RouterConfig = () => {
     const routes = useRoutes([
@@ -30,7 +31,7 @@ const RouterConfig = () => {
         // { path: `/news/:id`, element: <Detail /> },
         { path: `/collections/all`, element: <AllProduct /> },
         { path: `/collections/:ao_quan_sale`, element: <AoQuan /> },
-        // { path: `/collections/quan`, element: <AoQuan /> },
+        { path: `/search`, element: <SearchPage /> },
         { path: `/collections/category/:id`, element: <Category /> },
         { path: `/collections/new-arrival`, element: <NewArrivals /> },
         { path: `/collections/quan`, element: <div>products</div> },
