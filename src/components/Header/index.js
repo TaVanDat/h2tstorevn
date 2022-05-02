@@ -131,7 +131,7 @@ const Header = () => {
                             </NavLink>
                                 <ul className="submenu">
                                     <li>
-                                        <Link to='/collections/sale75/Sale up to 75%'>Sale off 75%</Link>
+                                        <Link to='/collections/sale75/Sale up to 75'>Sale off 75%</Link>
                                     </li>
                                     <li>
                                         <Link to={`/collections/ao/Áo`}>Áo

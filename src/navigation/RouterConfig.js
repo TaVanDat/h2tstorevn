@@ -1,5 +1,5 @@
 import React from "react";
-import { ROOT, Products } from "./CONSTANT";
+import { ROOT } from "./CONSTANT";
 import { useRoutes } from 'react-router-dom'
 import HomePage from "../pages/HomePage";
 import Policy from "../pages/Policy";
@@ -13,7 +13,7 @@ import ThanhHoa from "../pages/Address/ThanhHoa";
 import QuangNinh from "../pages/Address/QuangNinh";
 import CaoBang from "../pages/Address/CaoBang";
 import Login from "../pages/Login";
-import Shirt from "../pages/Shirt";
+// import Shirt from "../pages/Shirt";
 import Account from "../pages/Account";
 import NotFound from "../pages/NotFound";
 import Detail from "../pages/ProductDetail";
@@ -23,6 +23,8 @@ import AllProduct from "../pages/Product";
 import SearchPage from "../pages/SearchPage";
 import Sale from "../pages/Product/Sale";
 import Register from "../pages/Register";
+import Blog from "../pages/Blog";
+import BlogDetail from "../pages/Blog/BlogDetail";
 
 const RouterConfig = () => {
     const routes = useRoutes([
@@ -35,10 +37,16 @@ const RouterConfig = () => {
         { path: `/search`, element: <SearchPage /> },
         { path: `/collections/category/:id/:page_name`, element: <Category /> },
         { path: `/collections/quan`, element: <div>products</div> },
+        { path: '/collections/sale75/:page_link/:page_name', element: <Sale /> },
+
+        { path: '/blogs/news', element: <Blog /> },
+        { path: '/blogs/news/:id', element: <BlogDetail /> },
+
+
         { path: `/account`, element: <Account /> },
         { path: '/account/login', element: <Login /> },
         { path: '/account/register', element: <Register /> },
-        { path: '/collections/sale75/:page_link/:page_name', element: <Sale /> },
+
         { path: '/pages/hethongcuahang', element: <Address /> },
         { path: '/pages/cua-hang-ha-noi', element: <Hanoi /> },
         { path: '/pages/cua-hang-bac-giang', element: <BacGiang /> },
@@ -50,7 +58,7 @@ const RouterConfig = () => {
         { path: '/pages/chinh-sach-doi-tra', element: <Policy /> },
         { path: '/pages/tk-ngan-hang', element: <Bank /> },
         // /collections/all
-        { path: `${Products}`, element: <Shirt /> }
+        // { path: `${Products}`, element: <Shirt /> }
     ])
     return routes
 }

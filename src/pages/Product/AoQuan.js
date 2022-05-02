@@ -13,7 +13,6 @@ import { Pagination, Spin } from 'antd';
 import CardItem from '../../components/CardItem';
 
 import axios from 'axios';
-import { Link } from 'react-router-dom'
 
 const AoQuan = () => {
     const navigate = useNavigate();
