@@ -7,19 +7,21 @@ import queryString from 'query-string'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import BreadCrumb from '../../components/common/BreadCrum';
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import Containers from '../../components/common/Container';
 import { Pagination, Spin } from 'antd';
 import CardItem from '../../components/CardItem';
 
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
-
-const AllProduct = () => {
+const Sale = () => {
     const navigate = useNavigate();
+    const { page_name, page_link } = useParams();
     const [product, setProduct, productRef] = useStateRef([]);
     const url = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651304496/h2tstore/';
-    const banner = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651304496/h2tstore/banner/banner-all.png';
+    const banner = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651304496/h2tstore/banner/banner-product-qc.png';
+
     const [isLoading, setIsLoading] = useState(true);
     const [selectType, setSelectType, selectTypeRef] = useStateRef('')
     const [pagination, setPagination] = useState({
@@ -32,10 +34,17 @@ const AllProduct = () => {
         page_size: 15,
         page: 1,
     })
+    useEffect(() => {
+        setFilters({
+            ...filters,
+            page_link,
+        })
+    }, [page_link])
+
     const fetchData = async () => {
         try {
             const paramString = queryString.stringify(filters)
-            const response = await axios.get(`http://localhost:5000/api/v1/product/list?${paramString}`)
+            const response = await axios.get(`http://localhost:5000/api/v1/product/collection/sale75?${paramString}`)
             if (response && response.data) {
                 setProduct(response.data.data.data);
                 setPagination(response.data.data.pagination);
@@ -45,10 +54,12 @@ const AllProduct = () => {
             navigate('/notfound')
         }
     }
+
     const handleSelect = (e) => {
         setSelectType(e.target.value)
         setFilters({
             ...filters,
+            page: 1,
             title: selectTypeRef.current.split('-')[0],
             type: selectTypeRef.current.split('-')[1],
         })
@@ -60,15 +71,15 @@ const AllProduct = () => {
     return (
         <div className='pages all-product'>
             <Header />
-            <BreadCrumb number={3} name='Tất cả sản phẩm' />
-            <div className="banner-product-header"><img src={banner} alt="Tất cả sản phẩm" /></div>
+            <BreadCrumb number={3} name={`${page_name}`} />
+            <div className="banner-product-header_other"><img src={banner} alt="Tất cả sản phẩm" /></div>
             {isLoading ? <Spin className='spin-loading' size="large" tip="Loading..." />
                 :
                 <Containers>
                     <div className="heading-collection">
                         <div className="heading-collection_left">
                             <h1 className="title">
-                                Tất cả sản phẩm
+                                {page_name}
                             </h1>
                         </div>
 
@@ -112,4 +123,4 @@ const AllProduct = () => {
     )
 }
 
-export default AllProduct
+export default Sale

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './style.css'
 const CustomButton = props => {
     return (
-        <button style={{ ...props.style }} id="custom-btn" onClick={props.onClick} disabled={props.disabled}>{props.name}</button>
+        <button style={{ ...props.style }} className="custom-btn" onClick={props.onClick} disabled={props.disabled}>{props.name}</button>
     )
 }
 

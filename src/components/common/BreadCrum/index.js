@@ -38,7 +38,7 @@ const BreadCrumb = (props) => {
 
 
 BreadCrumb.propTypes = {
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     number: PropTypes.number
 }
 

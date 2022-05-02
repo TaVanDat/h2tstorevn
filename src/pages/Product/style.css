@@ -13,7 +13,11 @@
     width: 100%;
     height: 316px;
 }
-.all-product .banner-product-header img{
+.all-product .banner-product-header_other{
+    width: 100%;
+    height: 534px;
+}
+.all-product .banner-product-header img,.banner-product-header_other img{
     width: 100%;
     height: 100%;
 }

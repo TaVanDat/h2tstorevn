@@ -1,7 +1,9 @@
 .pages{
     position: relative;
 }
-
+.content-page-search{
+    position: relative;
+}
 .spin-loading{
     position: absolute;
     top: 50%;
@@ -134,7 +136,7 @@ input#go {
     margin: 0 0 10px;
 }
 .heading-collection  p{
-    margin-bottom: 10px;line-height: 21px;
+    margin-bottom: 30px;line-height: 21px;padding: 0 15px;
 }
 .heading-collection .subtext-result{
     margin-bottom: 10px;

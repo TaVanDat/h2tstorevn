@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './style.css'
 
+import useStateRef from 'react-usestateref'
 import queryString from 'query-string'
 import Popup from 'reactjs-popup';
 
@@ -24,10 +25,10 @@ const steps = [
 ]
 const Header = () => {
     const [isOpenned, setIsOpenned] = useState(false);
-    const [drop, setIsDrop] = useState(false);
     const [current, setCurrent] = React.useState(0);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [userName, setUserName] = useState('');
     const [search, setSearch] = useState('')
     const navigate = useNavigate();
     // open dropdown account
@@ -52,9 +53,7 @@ const Header = () => {
     const handlePassword = (e) => {
         setPassword(e.target.value)
     }
-    const handleSearchForm = (e) => {
-        setSearch(e.target.value)
-    }
+
     // login
     const login = async (e) => {
         e.preventDefault();
@@ -67,6 +66,7 @@ const Header = () => {
                 })
                 localStorage.setItem('token', res.data.data.token)
                 localStorage.setItem('user_id', res.data.data.data[0].Id)
+                setUserName(res.data.data.data[0].Name)
                 navigate('/account')
 
             })
@@ -76,8 +76,34 @@ const Header = () => {
                     description: '',
                     className: 'login_success'
                 })
+                navigate('/account/login')
             })
 
+    }
+
+    const recover = async (e) => {
+        e.preventDefault();
+        await api.callApiHeaders("POST", 'users/send/recover', { Email: email })
+            .then(res => {
+                notification.success({
+                    message: 'Xin chờ mốt lát, mật khẩu mới đang gửi tới email của bạn!',
+                    description: '',
+                    className: 'recover_success'
+                })
+                setCurrent(current - 1)
+                // setDisplay(true)
+                // navigate('/account/login')
+
+
+            })
+            .catch(err => {
+                notification.success({
+                    message: 'Email không tồn tại!',
+                    description: '',
+                    className: 'recover_error'
+                })
+                // navigate('/account/login')
+            })
     }
     const auth = localStorage.getItem('token');
     const onFinish = (values) => {
@@ -85,11 +111,6 @@ const Header = () => {
         const paramString = queryString.stringify({ q: values.q })
         navigate(`/search?${paramString}`)
     };
-    const handleSearch = (values) => {
-        const paramString = queryString.stringify({ q: values.target.value })
-        console.log(values.target.value)
-        navigate(`/search?${paramString}`)
-    }
 
     return (
         <div className='header'>
@@ -110,66 +131,66 @@ const Header = () => {
                             </NavLink>
                                 <ul className="submenu">
                                     <li>
-                                        <Link to='/product'>Sale off 75%</Link>
+                                        <Link to='/collections/sale75/Sale up to 75%'>Sale off 75%</Link>
                                     </li>
                                     <li>
-                                        <Link to='/product'>Áo
+                                        <Link to={`/collections/ao/Áo`}>Áo
                                             <i className="fa-solid fa-angle-right icon-vertical"></i>
                                         </Link>{/**ao */}
                                         <ul className="submenu2">
                                             <li>
-                                                <Link to='/product'>Áo thun</Link>
+                                                <Link to='/collections/category/1/Áo thun'>Áo thun</Link>
                                             </li>
                                             <li>
-                                                <Link to='/product'>Áo polo</Link>
+                                                <Link to='/collections/category/2/Áo polo'>Áo polo</Link>
                                             </li>
                                             <li>
-                                                <Link to='/product'>áo sơ mi</Link>
+                                                <Link to='/collections/category/3/Áo sơ mi'>Áo sơ mi</Link>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <Link to='/product'>Quần
+                                        <Link to='/collections/quan/Quần'>Quần
                                             <i className="fa-solid fa-angle-right icon-vertical"></i>
                                         </Link>
                                         <ul className="submenu2">
                                             <li>
-                                                <Link to='/product'>quần short</Link>
+                                                <Link to='/collections/category/5/Quần short<'>Quần short</Link>
                                             </li>
                                             <li>
-                                                <Link to='/product'>quần jeans</Link>
+                                                <Link to='/collections/category/6/Quần jeans'>Quần jeans</Link>
                                             </li>
                                             <li>
-                                                <Link to='/product'>quần jogger_quần dài</Link>
+                                                <Link to='/collections/category/7/Quần jogger_quần dài'>Quần jogger_quần dài</Link>
                                             </li>
                                             <li>
-                                                <Link to='/product'>quần tây_quần kaki</Link>
+                                                <Link to='/collections/category/8/Quần tây_quần kaki'>Quần tây_quần kaki</Link>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <Link to='/product'>Giày da</Link>
+                                        <Link to='/collections/category/10/Giày da'>Giày da</Link>
                                     </li>
                                     <li>
-                                        <Link to='/product'>Balo-túi sách</Link>
+                                        <Link to='/collections/category/9/Balo-túi sách'>Balo-túi sách</Link>
                                     </li>
                                     <li>
-                                        <Link to='/product'>Phụ kiện khác</Link>
+                                        <Link to='/collections/category/11/Phụ kiện khác'>Phụ kiện khác</Link>
                                     </li>
                                 </ul>
                             </li>
-                            <li><NavLink to='/collections/sale75'>Sale up to 75%
+                            <li><NavLink to='/collections/sale75/Sale up to 75'>Sale up to 75%
                                 <i className="fa-solid fa-chevron-down icon-down"></i>
                             </NavLink>{/*sale up to 75% */}
                                 <ul className="submenu">
                                     <li>
-                                        <NavLink to='/product'>Sale sản phẩm mùa đông</NavLink>
+                                        <Link to='/collections/sale75/somi-dai/Sale áo sơ mi_ quần dài'>Sale áo sơ mi_ quần dài</Link>
                                     </li>
                                     <li>
-                                        <NavLink to='/product'>Sale áo sơ mi_ quần dài</NavLink>
+                                        <Link to='/collections/sale75/thun-short/Sale áo thun_ quần short'>Sale áo thun_ quần short</Link>
                                     </li>
                                     <li>
-                                        <NavLink to='/product'>Sale áo thun_ quần short</NavLink>
+                                        <Link to='/collections/sale75/phu-kien/Sale phụ kiện'>Sale phụ kiện</Link>
                                     </li>
                                 </ul>
                             </li>
@@ -238,7 +259,7 @@ const Header = () => {
                                                     <Form.Item
                                                         name="q"
                                                     >
-                                                        <Input id='inputSearchAuto' placeholder='Tìm kiếm sản phẩm...' />
+                                                        <Input required id='inputSearchAuto' placeholder='Tìm kiếm sản phẩm...' />
                                                     </Form.Item>
                                                     <button className="btn-search btn" id="search-header-btn" aria-label="Tìm kiếm">
                                                         <i className="fa-solid fa-magnifying-glass"></i>
@@ -250,37 +271,6 @@ const Header = () => {
 
                                 )}
                             </Popup>
-                            {/* <Popup
-                                trigger={
-                                    <i className="fa-solid fa-magnifying-glass"></i>
-                                }
-                            position="bottom center"
-                            >
-                                {(close) => {
-
-                                    <div className="header-user-account-dropdown-search drop-search" style={{ zIndex: 1000 }}>
-                                        <div id="header-login-panel" className='site_account-panel'>
-                                            <div className="site_account_inner">
-                                                <p className='site-account_title search'>Tìm kiếm</p>
-                                                <Form
-                                                    name="basic"
-                                                    onFinish={onFinish}
-                                                    autoComplete="off"
-                                                >
-                                                    <Form.Item
-                                                        name="q"
-                                                    >
-                                                        <Input id='inputSearchAuto' placeholder='Tìm kiếm sản phẩm...' />
-                                                    </Form.Item>
-                                                    <button className="btn-search btn" id="search-header-btn" aria-label="Tìm kiếm">
-                                                        <i className="fa-solid fa-magnifying-glass"></i>
-                                                    </button>
-                                                </Form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }}
-                            </Popup> */}
                         </div>
 
                         <div className="header-user-account">
@@ -305,10 +295,10 @@ const Header = () => {
                                                         </header>
                                                         <form className="customer_login" onSubmit={login}>
                                                             <div className="customer_login_email">
-                                                                <input type="email" onChange={e => handleEmail(e)} className='email' placeholder='Email' />
+                                                                <input required type="email" onChange={e => handleEmail(e)} className='email' placeholder='Email' />
                                                             </div>
                                                             <div className="customer_login_password">
-                                                                <input type="password" onChange={e => handlePassword(e)} className='password' placeholder='Password' />
+                                                                <input required type="password" onChange={e => handlePassword(e)} className='password' placeholder='Password' />
                                                             </div>
                                                             <div className="site_recaptcha" style={{ color: 'rgb(180,180,180)', padding: '6px 0 0', fontSize: '13px', marginBottom: 12 }}>
                                                                 This site is protected by reCAPTCHA and the Google <a href='https://policies.google.com/privacy' style={{ color: 'blue' }} target="_blank" rel="noreferrer">Privacy Policy</a>  and <a href="https://policies.google.com/terms" style={{ color: 'blue' }} target="_blank" rel="noreferrer">Terms of Service</a>  apply.
@@ -323,9 +313,9 @@ const Header = () => {
                                                                 <h2 className='site-account_title'>khôi phục mật khẩu</h2>
                                                                 <p className="site_account_legend">Nhập email của bạn:</p>
                                                             </header>
-                                                            <form className="customer_login" >
+                                                            <form className="customer_login" onSubmit={recover}>
                                                                 <div className="customer_login_email">
-                                                                    <input type="text" className='email' placeholder='Email' />
+                                                                    <input required type="text" className='email' placeholder='Email' />
                                                                 </div>
                                                                 <div className="site_recaptcha" style={{ color: 'rgb(180,180,180)', padding: '6px 0 0', fontSize: '13px', marginBottom: 12 }}>
                                                                     This site is protected by reCAPTCHA and the Google <a href='https://policies.google.com/privacy' style={{ color: 'blue' }} target="_blank" rel="noreferrer">Privacy Policy</a>  and <a href="https://policies.google.com/terms" style={{ color: 'blue' }} target="_blank" rel="noreferrer">Terms of Service</a>  apply.
@@ -341,7 +331,7 @@ const Header = () => {
                                                             <Link to='/account/register' style={{ color: '#e85205' }}>&nbsp;Tạo tài khoản</Link>
                                                         </p>
                                                         <p>Quên mật khẩu?
-                                                            <button className="site-recover-password" onClick={() => next()}>&nbsp;Khôi phụ mật khẩu</button>
+                                                            <button className="site-recover-password" onClick={() => next()}>&nbsp;Khôi phục mật khẩu</button>
                                                         </p>
                                                     </div>
                                                 )}
@@ -362,7 +352,7 @@ const Header = () => {
                                                 <h2 className='site-account_title'>thông tin tài khoản</h2>
                                             </header>
                                             <ul>
-                                                <li><span>Ta Dat</span></li>
+                                                <li><span>{userName}</span></li>
                                                 <li><Link to="/account">Tài khoản của tôi</Link></li>
                                                 <li><Link to="/account/update">Cập nhật tài khoản</Link></li>
                                                 <li><Link to="/" onClick={Logout}>Đăng xuất</Link></li>
@@ -373,9 +363,6 @@ const Header = () => {
                             </Popup>
                         </div>
                         <div className="header-user-cart">
-                            {/* <Link to='/'> */}
-                            {/* <i className="fa-solid fa-bag-shopping"></i> */}
-                            {/* </Link> */}
                             <Popup trigger={<i className="fa-solid fa-bag-shopping"></i>}>
                                 {(close) => (
                                     <form>

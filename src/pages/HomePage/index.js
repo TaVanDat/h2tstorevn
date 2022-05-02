@@ -100,7 +100,7 @@ const HomePage = () => {
                   }
                 </div>
                 <div className="moreItem--btn">
-                  <button><Link to='/collections/new-arrival'>Xem thêm</Link></button>
+                  <Link to='/collections/all'>Xem thêm</Link>
                 </div>
               </Containers>
 
@@ -112,7 +112,7 @@ const HomePage = () => {
                 <h2 className="sale__products--title title">
                   <NavLink to="/collections/sale75">sale up to 75%</NavLink>
                 </h2>
-                <Link to='/collections/sale75'>Xem thêm &gt;&gt;</Link>
+                <Link to='/collections/sale75/Sale up to 75'>Xem thêm &gt;&gt;</Link>
               </div>
               <Containers>
                 <div className="sale__products-lists">
@@ -120,8 +120,6 @@ const HomePage = () => {
                     return (<CardItem key={item.Id} quantity={item.Quantity} product_id={item.Id} title={item.Name} price={item.Price} salePrice={item.SalePrice} image={item.Image.map(item => { return (urlImg + item) })} type='item' />)
                   })
                   }
-                  {/* stripesblue1447_2.png
-            */}
                 </div>
 
               </Containers>
@@ -149,7 +147,7 @@ const HomePage = () => {
 
             <div className="blog">
               <h2 className="blog__products--title title">
-                <NavLink to="/product">h2t blog</NavLink>
+                <Link to="/product">h2t blog</Link>
               </h2>
               <Containers>
                 <div className="blog--list">
@@ -159,7 +157,7 @@ const HomePage = () => {
                   }
                 </div>
                 <div className="moreItem--btn">
-                  <button><Link to='/blogs/news'>Xem thêm</Link></button>
+                  <Link to='/blogs/news'>Xem thêm</Link>
                 </div>
               </Containers>
             </div>

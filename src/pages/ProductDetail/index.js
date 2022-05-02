@@ -142,12 +142,15 @@ const Detail = props => {
                                                     <Radio.Group>
                                                         {
                                                             productIdRef.current.Color
-                                                                && productIdRef.current.Image.length === productIdRef.current.Color.length
+                                                                && productIdRef.current.Image.length >= productIdRef.current.Color.length
                                                                 ? productIdRef.current.Color.map((item, index) => (
-                                                                    <Radio.Button key={index} value={item}><img src={url + productIdRef.current.Image[index]} alt="" width={40} />&emsp;{item}</Radio.Button>
+                                                                    <Radio.Button key={index} value={item}><img src={url + productIdRef.current.Image[index]} alt="" width={40} style={{ height: 38, padding: 1 }} />&emsp;{item}</Radio.Button>
                                                                 ))
-                                                                : <Radio.Button key={0} value={productIdRef.current.Color[0]}><img src={url + productIdRef.current.Image[0]} alt="" width={40} />&emsp;{productIdRef.current.Color[0]}</Radio.Button>
+                                                                : productIdRef.current.Color.filter((item, index) => { if (index === productIdRef.current.Image.length) return item }).map((item, index) => (
+                                                                    <Radio.Button key={index} value={item}><img src={url + productIdRef.current.Image[index]} alt="" width={40} style={{ height: 38, padding: 1 }} />&emsp;{item}</Radio.Button>
+                                                                ))
                                                         }
+                                                        {/* <Radio.Button key={0} value={productIdRef.current.Color[0]}><img src={url + productIdRef.current.Image[0]} alt="" width={40} style={{ height: 38, padding: 1 }} />&emsp;{productIdRef.current.Color[0]}</Radio.Button> */}
                                                         {/* Lỗi thiếu ảnh */}
                                                     </Radio.Group>
                                                 </Form.Item>

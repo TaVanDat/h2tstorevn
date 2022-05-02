@@ -54,7 +54,7 @@ const CardItem = (props) => {
               <div className="blog--description">
                 <p>
 
-                  {description}
+                  {description}...
                 </p>
               </div>
             </BlogWrapper>

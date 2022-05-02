@@ -57,20 +57,17 @@
 
 .homepage-wrapper .moreItem--btn{
     text-align: center;
+    margin-top: 40px;
 }
-.homepage-wrapper .moreItem--btn button{
-    padding:0.5rem 0.9375rem;
+.homepage-wrapper .moreItem--btn a{
+    padding:0.6rem 0.9375rem;
     border:1px solid;
     outline: none;
     background-color: transparent;
     transition: all 0.4s;
 }
-.homepage-wrapper .moreItem--btn button:hover{
+.homepage-wrapper .moreItem--btn a:hover{
     background-color: #000;
-}
-.homepage-wrapper .moreItem--btn button:hover a{
-    color:#fff;
-
 }
 
 

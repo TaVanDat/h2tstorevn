@@ -19,9 +19,10 @@ import NotFound from "../pages/NotFound";
 import Detail from "../pages/ProductDetail";
 import AoQuan from "../pages/Product/AoQuan";
 import Category from "../pages/Product/Category";
-import NewArrivals from "../pages/Product/NewArrivals";
 import AllProduct from "../pages/Product";
 import SearchPage from "../pages/SearchPage";
+import Sale from "../pages/Product/Sale";
+import Register from "../pages/Register";
 
 const RouterConfig = () => {
     const routes = useRoutes([
@@ -30,14 +31,14 @@ const RouterConfig = () => {
         { path: `/product/:id`, element: <Detail /> },
         // { path: `/news/:id`, element: <Detail /> },
         { path: `/collections/all`, element: <AllProduct /> },
-        { path: `/collections/:ao_quan_sale`, element: <AoQuan /> },
+        { path: `/collections/:page_link/:page_name`, element: <AoQuan /> },
         { path: `/search`, element: <SearchPage /> },
-        { path: `/collections/category/:id`, element: <Category /> },
-        { path: `/collections/new-arrival`, element: <NewArrivals /> },
+        { path: `/collections/category/:id/:page_name`, element: <Category /> },
         { path: `/collections/quan`, element: <div>products</div> },
         { path: `/account`, element: <Account /> },
         { path: '/account/login', element: <Login /> },
-        { path: '/collections/sale75', element: <div>products</div> },
+        { path: '/account/register', element: <Register /> },
+        { path: '/collections/sale75/:page_link/:page_name', element: <Sale /> },
         { path: '/pages/hethongcuahang', element: <Address /> },
         { path: '/pages/cua-hang-ha-noi', element: <Hanoi /> },
         { path: '/pages/cua-hang-bac-giang', element: <BacGiang /> },
