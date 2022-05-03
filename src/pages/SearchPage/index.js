@@ -42,7 +42,6 @@ const SearchPage = () => {
             q: searchStringRef.current
         })
         setIsLoading(true);
-        return () => { setSearchString('') }
     }, [searchParams])
     const fetchData = async () => {
         try {

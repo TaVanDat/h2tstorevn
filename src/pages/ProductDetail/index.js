@@ -52,8 +52,8 @@ const Detail = props => {
             if (response && response.data) {
                 setProductId(response.data.data.data)
                 setCategory_id(Number(response.data.data.data.CategoryId))
-                console.log(productIdRef.current)
-                console.log(category_idRef.current)
+                // console.log(productIdRef.current)
+                // console.log(category_idRef.current)
                 const paramString = queryString.stringify({ id, category_id: category_idRef.current })
                 const res = await axios.get(`http://localhost:5000/api/v1/product/relative?${paramString}`)
                 if (res && res.data) {

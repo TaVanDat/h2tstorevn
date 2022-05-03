@@ -25,6 +25,7 @@ import Sale from "../pages/Product/Sale";
 import Register from "../pages/Register";
 import Blog from "../pages/Blog";
 import BlogDetail from "../pages/Blog/BlogDetail";
+import Cart from "../pages/Cart";
 
 const RouterConfig = () => {
     const routes = useRoutes([
@@ -41,6 +42,8 @@ const RouterConfig = () => {
 
         { path: '/blogs/news', element: <Blog /> },
         { path: '/blogs/news/:id', element: <BlogDetail /> },
+
+        { path: '/cart', element: <Cart /> },
 
 
         { path: `/account`, element: <Account /> },
