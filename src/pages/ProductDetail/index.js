@@ -25,6 +25,9 @@ import CustomButton from '../../components/common/Button';
 import axios from 'axios';
 import CardItem from '../../components/CardItem';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { addCart } from '../../redux/actions';
+
 
 
 const formItemLayout = {
@@ -36,6 +39,7 @@ const formItemLayout = {
     },
 };
 const Detail = props => {
+    const dispatch = useDispatch();
     const [visibleSize, setVisibleSize] = useState(false);
     const [quantity, setQuantity] = useState(1)
     const [productId, setProductId, productIdRef] = useStateRef({})
@@ -43,6 +47,9 @@ const Detail = props => {
     const [category_id, setCategory_id, category_idRef] = useStateRef(0);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
+
+
+
     const url = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/'
 
     const { id } = useParams();
@@ -81,13 +88,17 @@ const Detail = props => {
         window.scrollTo(0, 0);
         getProduct();
     }, [id])
+    const cart = useSelector(state => state.cart.cart)
     const onFinish = (fieldValue) => {
         const values = {
             ...fieldValue,
             Quantity: quantity,
-            Id: id
+            ProductId: id,
+            SalePrice: productIdRef.current.SalePrice
         }
+        dispatch(addCart(JSON.parse(JSON.stringify(values))))
         console.log(values);
+        console.log(cart)
     };
     return (
         <>

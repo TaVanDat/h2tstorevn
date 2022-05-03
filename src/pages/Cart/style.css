@@ -1,6 +1,13 @@
 .wrapper-cart-detail {
     padding: 35px 0 50px;
+    position: relative;
     width: 100%;
+}
+.spin-loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 p {
     margin: 0 0 10px 0;
@@ -60,4 +67,77 @@ p {
 }
 .ant-table-tbody tr .ant-table-cell:nth-child(4){
  text-align: center;
+}
+
+.info-cart-content{
+    padding: 0 15px;
+}
+.sidebox-order {
+    background: #fff;
+    padding: 15px;
+    position: relative;
+    margin-bottom: 30px;
+    border: 1px solid #e1e3e4;
+    border-radius: 2px;
+}
+
+
+.sidebox-order div[class^="sidebox-order_"] {
+    margin-bottom: 15px;
+}
+.sidebox-order_title h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.sidebox-order div[class^="sidebox-order_"] {
+    margin-bottom: 15px;
+}
+.sidebox-order_total {
+    font-size: 16px;
+    color: #5c5c5c;
+    font-weight: 600;
+    padding: 15px 0;
+    border-top: 1px dotted #dfe0e1;
+    border-bottom: 1px dotted #dfe0e1;
+}
+.sidebox-order_total p .total-price {
+    float: right;
+    color: red;
+    font-size: 24px;
+}
+.link-continue {
+    margin: 10px 0 0;
+    text-align: center;
+}
+.sidebox-group{
+    padding:0 15px;
+} 
+
+.sidebox-group h4 {
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #666666;
+}
+.sidebox-policy ul li {
+    display: block;
+    line-height: 25px;
+    position: relative;
+    padding-left: 20px;
+    overflow: hidden;
+}
+.sidebox-policy ul li:before {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    content: "\f178";
+    font-size: 10px;
+    left: 0;
+    opacity: 1;
+    position: absolute;
+    transition: all 0.4s ease-in-out 0s;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -moz-transition: all 0.4s ease-in-out 0s;
 }

@@ -159,7 +159,7 @@ a{
     padding: 0 10px;
     font-size: 22px;
     line-height: 40px;
-    color: #000;
+    color: tomato;
     display: block;
 }
 
@@ -375,6 +375,21 @@ a{
     border-bottom: 1px solid #ededed;
 }
 
+.header-user-cart i,.header-user-search i,.header-user-account i{
+    color: tomato;
+}
+.header-user-cart i.fa-bag-shopping{
+    position: relative;
+    font-size: 25px;
+}
+.header-user-cart i span{
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    color: #fff;
+    font-size: 12px;
+}
 @keyframes rotate{
     from{
         transform: rotate(0);

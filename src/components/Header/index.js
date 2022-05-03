@@ -13,6 +13,8 @@ import CustomButton from '../common/Button';
 import { Form, Input, notification } from 'antd'
 import { Logout } from '../../services'
 import * as api from '../../api/apiClient'
+import { useDispatch, useSelector } from 'react-redux';
+import { getCart } from '../../redux/actions';
 const urlImg = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/';
 
 const steps = [
@@ -24,6 +26,12 @@ const steps = [
     }
 ]
 const Header = () => {
+    const cart = useSelector(state => state.cart.cart)
+    const success = useSelector(state => state.cart.success)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getCart())
+    }, [success])
     const [isOpenned, setIsOpenned] = useState(false);
     const [current, setCurrent] = React.useState(0);
     const [email, setEmail] = useState('')
@@ -363,7 +371,8 @@ const Header = () => {
                             </Popup>
                         </div>
                         <div className="header-user-cart">
-                            <Popup trigger={<i className="fa-solid fa-bag-shopping"></i>}>
+                            <Link to='/cart'><i className="fa-solid fa-bag-shopping"><span>{cart ? cart.TotalQuantity : 0}</span></i></Link>
+                            {/* <Popup trigger={<i className="fa-solid fa-bag-shopping"></i>}>
                                 {(close) => (
                                     <form>
                                         <input type='text' placeholder='tim' />
@@ -378,7 +387,7 @@ const Header = () => {
                                         </button>
                                     </form>
                                 )}
-                            </Popup>
+                            </Popup> */}
                         </div>
                     </div>
                 </div >

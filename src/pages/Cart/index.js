@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import 'antd/dist/antd.min.css';
 import './style.css';
-import { Table } from 'antd';
+import { Table, Spin } from 'antd';
 import { DeleteOutlined, HomeOutlined } from '@ant-design/icons';
 import BreadCrumb from '../../components/common/BreadCrum'
 import Containers from '../../components/common/Container'
@@ -10,53 +10,34 @@ import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import { Format } from '../../services'
 import { Link } from 'react-router-dom';
+import { getCart } from '../../redux/actions';
+
+import { useDispatch, useSelector } from 'react-redux';
+import CustomButton from '../../components/common/Button';
+import useStateRef from 'react-usestateref';
 const url = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/sale99k.png'
 
-const dataSource = [
-    {
-        key: 1,
-        Name: 'John Brown',
-        Price: 1000,
-        Quantity: 32,
-        Size: 'S',
-        Color: 'Trắng'
-    },
-    {
-        key: 2,
-        Name: 'Jim Green',
-        Price: 1000,
-        Quantity: 42,
-        Size: 'S',
-        Color: 'Trắng'
-    },
-    {
-        key: 3,
-        Name: 'Not Expandable',
-        Price: 1000,
-        Quantity: 29,
-        Size: 'S',
-        Color: 'Trắng'
-    },
-    {
-        key: 4,
-        Name: 'Joe Black',
-        Price: 1000,
-        Quantity: 32,
-        Size: 'S',
-        Color: 'Trắng'
-    },
-];
+
 const Cart = () => {
-    const [data, setData] = useState(dataSource)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getCart())
+    }, [])
+    const cart = useSelector(state => state.cart.cart)
+    const isLoading = useSelector(state => state.cart.isLoading)
+    const [dataSource, setDataSource, dataSourceRef] = useStateRef(() => {
+        return (!isLoading && cart.data)
+    })
+    useEffect(() => {
+        !isLoading && setDataSource(cart.data)
+    }, [isLoading])
     const handleInQuantity = (record) => {
-        setData(pre => {
+        setDataSource(pre => {
             return pre.map(item => {
-                if (Number(item.key) === Number(record.key))
-                    // return {...pre,age:1}
-                    // else return pre
+                if (Number(item.ProductId) === Number(record.ProductId) && item.Size === record.Size && item.Color === record.Color)
                     return {
                         ...item,
-                        Quantity: item.Quantity + 1
+                        Quantity: Number(item.Quantity) + 1
                     }
                 else return item
 
@@ -65,14 +46,12 @@ const Cart = () => {
         )
     }
     const handleDeQuantity = (record) => {
-        setData(pre => {
+        setDataSource(pre => {
             return pre.map(item => {
-                if (Number(item.key) === Number(record.key))
-                    // return {...pre,age:1}
-                    // else return pre
+                if (Number(item.ProductId) === Number(record.ProductId) && item.Size === record.Size && item.Color === record.Color)
                     return {
                         ...item,
-                        Quantity: item.Quantity > 0 ? item.Quantity - 1 : 0
+                        Quantity: item.Quantity > 1 ? item.Quantity - 1 : 1
                     }
                 else return item
 
@@ -100,8 +79,8 @@ const Cart = () => {
         userSelect: 'none'
     }
     const columns = [
-        { title: '', dataIndex: 'Name', key: 'Name' },
-        { title: '', dataIndex: 'Price', key: 'Price' },
+        { title: 'Tên hàng', dataIndex: 'Name', key: 'Name' },
+        { title: 'Giá', dataIndex: 'SalePrice', key: 'SalePrice' },
         {
             key: 'Quantity', title: '',
             render: (record) => {
@@ -112,7 +91,7 @@ const Cart = () => {
                 )
             }
         },
-        { title: '', dataIndex: 'Quantity', key: 'Quantity' },
+        { title: 'Số lượng', dataIndex: 'Quantity', key: 'Quantity' },
         {
             key: 'Quantity', title: '',
             render: (record) => {
@@ -123,8 +102,8 @@ const Cart = () => {
                 )
             }
         },
-        { title: '', dataIndex: 'Size', key: 'Size' },
-        { title: '', dataIndex: 'Color', key: 'Color' },
+        { title: 'Kích cỡ', dataIndex: 'Size', key: 'Size' },
+        { title: 'Màu', dataIndex: 'Color', key: 'Color' },
         {
             title: '', key: 'Delete',
             render: (record) => {
@@ -141,64 +120,66 @@ const Cart = () => {
             <BreadCrumb name={`Giỏ hàng`} />
             <Containers>
                 <div className="wrapper-cart-detail">
-                    <div className="container-fluid">
-                        <div className="heading-page">
-                            <div className="header-page">
-                                <h1>Giỏ hàng của bạn</h1>
-                                <p className="count-cart">Có <span>4 sản phẩm</span> trong giỏ hàng</p>
-                            </div>
-                        </div>
-                        <div className="row wrapbox-content-cart">
-                            <div className="contentCart-detail">
-                                <div className="main-cart">
-                                    <Table
-                                        showHeader={false}
-                                        pagination={false}
-                                        columns={columns}
-                                        // rowSelection={{}}
-                                        dataSource={data}
-                                    />
+                    {isLoading ? <Spin className='spin-loading' size="large" tip="Loading..." /> :
+                        <div className="container-fluid">
+                            <div className="heading-page">
+                                <div className="header-page">
+                                    <h1>Giỏ hàng của bạn</h1>
+                                    <p className="count-cart">Có <span>{cart.TotalQuantity} sản phẩm</span> trong giỏ hàng</p>
                                 </div>
                             </div>
-                            <div className="info-cart-content">
-                                <div className="sidebox-order">
-                                    <div className="sidebox-order-inner">
-                                        <div className="sidebox-order_title">
-                                            <h3>Thông tin đơn hàng</h3>
-                                        </div>
-                                        <div className="sidebox-order_total">
-                                            <p>Tổng tiền:
-                                                <span className="total-price">2,320,000₫</span>
-                                            </p>
-                                        </div>
-                                        <div className="sidebox-order_text">
-                                            <p>Phí vận chuyển sẽ được tính ở trang thanh toán.<br />
-                                                Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.</p>
-                                        </div>
-                                        <div className="sidebox-order_action">
-                                            <a href='/' className="button dark btncart-checkout">THANH TOÁN</a>
-                                            <p className="link-continue text-center">
-                                                <a href="/collections/all">
-                                                    <i className="fa fa-reply"></i> Tiếp tục mua hàng
-                                                </a>
-                                            </p>
-                                        </div>
+                            <div className="row wrapbox-content-cart">
+                                <div className="contentCart-detail">
+                                    <div className="main-cart">
+                                        <Table
+                                            rowKey={(record) => record.ProductId * Math.random() * 1000}
+                                            pagination={false}
+                                            columns={columns}
+                                            dataSource={dataSourceRef.current}
+                                        />
                                     </div>
                                 </div>
+                                <div className="info-cart-content">
+                                    <div className="sidebox-order">
+                                        <div className="sidebox-order-inner">
+                                            <div className="sidebox-order_title">
+                                                <h3>Thông tin đơn hàng</h3>
+                                            </div>
+                                            <div className="sidebox-order_total">
+                                                <p>Tổng tiền:
+                                                    <span className="total-price">2,320,000₫</span>
+                                                </p>
+                                            </div>
+                                            <div className="sidebox-order_text">
+                                                <p>Phí vận chuyển sẽ được tính ở trang thanh toán.<br />
+                                                    Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.</p>
+                                            </div>
+                                            <div className="sidebox-order_action">
+                                                {/* <a href='/' className="button dark btncart-checkout">THANH TOÁN</a> */}
+                                                <CustomButton name='THANH TOÁN' />
+                                                <p className="link-continue text-center">
+                                                    <Link to="/collections/all">
+                                                        <i className="fa fa-reply"></i> Tiếp tục mua hàng
+                                                    </Link>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                <div className="sidebox-group sidebox-policy visible-xs">
-                                    <h4>Chính sách mua hàng</h4>
-                                    <ul>
-                                        <li>Sản phẩm được đổi 1 lần duy nhất, không hỗ trợ trả.</li>
-                                        <li>Sản phẩm còn đủ tem mác, chưa qua sử dụng.</li>
-                                        <li>Sản phẩm nguyên giá được đổi trong 30 ngày trên toàn hệ thống</li>
-                                        <li>Sản phẩm sale chỉ hỗ trợ đổi size (nếu cửa hàng còn) trong 7 ngày trên toàn hệ thống.</li>
-                                    </ul>
+                                    <div className="sidebox-group sidebox-policy visible-xs">
+                                        <h4>Chính sách mua hàng</h4>
+                                        <ul>
+                                            <li>Sản phẩm được đổi 1 lần duy nhất, không hỗ trợ trả.</li>
+                                            <li>Sản phẩm còn đủ tem mác, chưa qua sử dụng.</li>
+                                            <li>Sản phẩm nguyên giá được đổi trong 30 ngày trên toàn hệ thống</li>
+                                            <li>Sản phẩm sale chỉ hỗ trợ đổi size (nếu cửa hàng còn) trong 7 ngày trên toàn hệ thống.</li>
+                                        </ul>
+                                    </div>
+
                                 </div>
-
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </Containers>
             <Footer />
