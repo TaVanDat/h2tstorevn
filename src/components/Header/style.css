@@ -157,7 +157,7 @@ a{
 .header-bottom .header-user i{ 
     margin-left: 12px;
     padding: 0 10px;
-    font-size: 22px;
+    font-size: 30px;
     line-height: 40px;
     color: tomato;
     display: block;
@@ -380,7 +380,7 @@ a{
 }
 .header-user-cart i.fa-bag-shopping{
     position: relative;
-    font-size: 25px;
+    font-size: 30px;
 }
 .header-user-cart i span{
     position: absolute;

@@ -19,17 +19,21 @@ const url = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tst
 
 
 const Cart = () => {
+    const auth = localStorage.getItem('token') ? true : false
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getCart())
     }, [])
+    const cartLocal = useSelector(state => state.cart.cartLocal)
     const cart = useSelector(state => state.cart.cart)
     const isLoading = useSelector(state => state.cart.isLoading)
     const [dataSource, setDataSource, dataSourceRef] = useStateRef(() => {
-        return (!isLoading && cart.data)
+        return (auth ? (!isLoading && cart.data) : (!isLoading && cartLocal))
     })
     useEffect(() => {
-        !isLoading && setDataSource(cart.data)
+        auth ?
+            (!isLoading && setDataSource(cart.data)) :
+            (!isLoading && setDataSource(cartLocal))
     }, [isLoading])
     const handleInQuantity = (record) => {
         setDataSource(pre => {
@@ -125,7 +129,7 @@ const Cart = () => {
                             <div className="heading-page">
                                 <div className="header-page">
                                     <h1>Giỏ hàng của bạn</h1>
-                                    <p className="count-cart">Có <span>{cart.TotalQuantity} sản phẩm</span> trong giỏ hàng</p>
+                                    <p className="count-cart">Có <span>{(Array.isArray(cart) || !cart) ? 0 : cart.TotalQuantity} sản phẩm</span> trong giỏ hàng</p>
                                 </div>
                             </div>
                             <div className="row wrapbox-content-cart">
@@ -147,7 +151,7 @@ const Cart = () => {
                                             </div>
                                             <div className="sidebox-order_total">
                                                 <p>Tổng tiền:
-                                                    <span className="total-price">2,320,000₫</span>
+                                                    <span className="total-price">{(Array.isArray(cart) || !cart) ? 0 + 'đ' : Format(cart.TotalPrice)}</span>
                                                 </p>
                                             </div>
                                             <div className="sidebox-order_text">

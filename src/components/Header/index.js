@@ -26,6 +26,7 @@ const steps = [
     }
 ]
 const Header = () => {
+    const cartLocal = useSelector(state => state.cartLocal)
     const cart = useSelector(state => state.cart.cart)
     const success = useSelector(state => state.cart.success)
     const dispatch = useDispatch();
@@ -163,7 +164,7 @@ const Header = () => {
                                         </Link>
                                         <ul className="submenu2">
                                             <li>
-                                                <Link to='/collections/category/5/Quần short<'>Quần short</Link>
+                                                <Link to='/collections/category/5/Quần short'>Quần short</Link>
                                             </li>
                                             <li>
                                                 <Link to='/collections/category/6/Quần jeans'>Quần jeans</Link>
@@ -371,7 +372,11 @@ const Header = () => {
                             </Popup>
                         </div>
                         <div className="header-user-cart">
-                            <Link to='/cart'><i className="fa-solid fa-bag-shopping"><span>{cart ? cart.TotalQuantity : 0}</span></i></Link>
+                            <Link to='/cart'><i className="fa-solid fa-bag-shopping">
+                                <span>
+                                    {auth ? ((Array.isArray(cart) || !cart) ? 0 : cart.TotalQuantity) : ((Array.isArray(cartLocal) || !cartLocal) ? 0 : cartLocal.length)}
+                                </span></i>
+                            </Link>
                             {/* <Popup trigger={<i className="fa-solid fa-bag-shopping"></i>}>
                                 {(close) => (
                                     <form>

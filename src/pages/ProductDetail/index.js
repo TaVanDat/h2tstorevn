@@ -39,6 +39,7 @@ const formItemLayout = {
     },
 };
 const Detail = props => {
+    const auth = localStorage.getItem('token') ? true : false;
     const dispatch = useDispatch();
     const [visibleSize, setVisibleSize] = useState(false);
     const [quantity, setQuantity] = useState(1)
@@ -92,13 +93,24 @@ const Detail = props => {
     const onFinish = (fieldValue) => {
         const values = {
             ...fieldValue,
-            Quantity: quantity,
+            Quantity: String(quantity),
             ProductId: id,
-            SalePrice: productIdRef.current.SalePrice
+            SalePrice: productIdRef.current.SalePrice,
+            Size: fieldValue.Size ? fieldValue.Size : productIdRef.current.Size[0],
+            Color: fieldValue.Color ? fieldValue.Color : productIdRef.current.Color[0],
         }
-        dispatch(addCart(JSON.parse(JSON.stringify(values))))
-        console.log(values);
-        console.log(cart)
+        console.log(values)
+        let cartLocal = {
+            Name: productIdRef.current.Name
+        }
+        auth ?
+            dispatch(addCart(JSON.parse(JSON.stringify(values))))
+            :
+            dispatch(addCart(JSON.parse(JSON.stringify({ ...values, ...cartLocal }))))
+        // navigate('/account/login')
+        // localStorage.setItem('cart_user', JSON.stringify([...cart_user, JSON.parse(JSON.stringify(values))]))
+        // console.log(values);
+        // console.log(cart)
     };
     return (
         <>
