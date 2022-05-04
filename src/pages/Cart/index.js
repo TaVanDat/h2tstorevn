@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import 'antd/dist/antd.min.css';
 import './style.css';
 
-import { Table, Spin } from 'antd';
+import { Table, Spin, Radio, notification } from 'antd';
 import queryString from 'query-string'
 import { DeleteOutlined, HomeOutlined } from '@ant-design/icons';
 import BreadCrumb from '../../components/common/BreadCrum'
@@ -11,22 +11,26 @@ import Containers from '../../components/common/Container'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import { Format } from '../../services'
-import { Link } from 'react-router-dom';
-import { getCart, addCart, deleteCartItem } from '../../redux/actions';
+import { Link, useNavigate } from 'react-router-dom';
+import { getCart, addCart, deleteCartItem, payment } from '../../redux/actions';
 
 import { useDispatch, useSelector } from 'react-redux';
 import CustomButton from '../../components/common/Button';
 import useStateRef from 'react-usestateref';
+import moment from 'moment';
 const url = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/sale99k.png'
 
 
 const Cart = () => {
     const auth = localStorage.getItem('token') ? true : false
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getCart())
     }, [])
+    const [paymentTransfer, setPayment] = React.useState('Giao tận nơi');
     const cartLocal = useSelector(state => state.cart.cartLocal)
+    const success = useSelector(state => state.cart.success)
     const cart = useSelector(state => state.cart.cart)
     const isLoading = useSelector(state => state.cart.isLoading)
     const [dataSource, setDataSource, dataSourceRef] = useStateRef(() => {
@@ -104,16 +108,24 @@ const Cart = () => {
             }
         })[0]
         // console.log(params)
-        dispatch(deleteCartItem(queryString.stringify(params)))
-        // console.log(dataSourceRef.current.filter(item => (Number(item.ProductId) !== Number(record.ProductId) & item.Size !== record.Size & item.Color !== record.Color & Number(item.Quantity) !== Number(record.Quantity))))
-        // console.log(dataSourceRef.current.filter(item => (item.ProductId == record.ProductId & item.Name == record.Name && item.Size == record.Size & item.Color == record.Color)))
-        // console.log(dataSourceRef.current.filter((item, index) => index !== dataSourceRef.current.findIndex(item => (item.ProductId == record.ProductId & item.Name == record.Name && item.Size == record.Size))))
-        // console.log(dataSourceRef.current)
-        setDataSource(pre => {
-            // return pre.filter(item => (Number(item.ProductId) !== Number(record.ProductId) & item.Size !== record.Size & item.Color !== record.Color & Number(item.Quantity) !== Number(record.Quantity)))
-            return pre.filter((item, index) => index !== dataSourceRef.current.findIndex(item => (item.ProductId == record.ProductId & item.Name == record.Name && item.Size == record.Size)))
+        if (!auth) {
+            setDataSource(pre => {
+                // return pre.filter(item => (Number(item.ProductId) !== Number(record.ProductId) & item.Size !== record.Size & item.Color !== record.Color & Number(item.Quantity) !== Number(record.Quantity)))
+                return pre.filter((item, index) => index !== dataSourceRef.current.findIndex(item => (item.ProductId == record.ProductId & item.Name == record.Name && item.Size == record.Size)))
+            }
+            )
+        } else {
+            dispatch(deleteCartItem(queryString.stringify(params)))
+            // console.log(dataSourceRef.current.filter(item => (Number(item.ProductId) !== Number(record.ProductId) & item.Size !== record.Size & item.Color !== record.Color & Number(item.Quantity) !== Number(record.Quantity))))
+            // console.log(dataSourceRef.current.filter(item => (item.ProductId == record.ProductId & item.Name == record.Name && item.Size == record.Size & item.Color == record.Color)))
+            // console.log(dataSourceRef.current.filter((item, index) => index !== dataSourceRef.current.findIndex(item => (item.ProductId == record.ProductId & item.Name == record.Name && item.Size == record.Size))))
+            // console.log(dataSourceRef.current)
+            setDataSource(pre => {
+                // return pre.filter(item => (Number(item.ProductId) !== Number(record.ProductId) & item.Size !== record.Size & item.Color !== record.Color & Number(item.Quantity) !== Number(record.Quantity)))
+                return pre.filter((item, index) => index !== dataSourceRef.current.findIndex(item => (item.ProductId == record.ProductId & item.Name == record.Name && item.Size == record.Size)))
+            }
+            )
         }
-        )
     }
     const styleBtnDe = {
         position: "absolute",
@@ -173,6 +185,50 @@ const Cart = () => {
         }
 
     ];
+
+
+    const handleTraferPayment = e => {
+        // console.log('radio checked', e.target.value);
+        setPayment(e.target.value);
+    };
+    const handlePayment = (e) => {
+        e.preventDefault();
+        // console.log(typeof moment(new Date()).format('DD-MM-YYYY'))
+        // console.log(paymentTransfer)
+        // const CartPayment = cart.data.map(item => {
+        //     return {
+        //         ProductId: item.ProductId,
+        //         UnitOfMeasureId: item.UnitOfMeasureId,
+        //         Quantity: item.Quantity,
+        //         Amount: item.Quantity * item.SalePrice,
+        //     }
+        // })
+        // console.log(cart.TotalPrice)
+        const dataPayment = {
+            OrderDate: moment(new Date()).format('DD-MM-YYYY'),
+            Total: cart.TotalPrice,
+            TransformMethod: paymentTransfer,
+            CartPayment: cart.data.map(item => {
+                return {
+                    ProductId: item.ProductId,
+                    UnitOfMeasureId: item.UnitOfMeasureId,
+                    Quantity: item.Quantity,
+                    SalePrice: item.SalePrice,
+                    Amount: item.Quantity * item.SalePrice,
+                }
+            })
+        }
+        auth ?
+            dispatch(payment(dataPayment))
+            : navigate('/account/login');
+        if (success) {
+            notification.success({
+                message: 'Thành công!',
+                description: "",
+                className: 'payment-success'
+            })
+        }
+    }
     return (
         <div className='pages pages-cart'>
             <Header />
@@ -210,12 +266,15 @@ const Cart = () => {
                                                 </p>
                                             </div>
                                             <div className="sidebox-order_text">
-                                                <p>Phí vận chuyển sẽ được tính ở trang thanh toán.<br />
-                                                    Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.</p>
+                                                <p>Chọn phương thức thanh toán! <span style={{ color: '#999' }}>(Mặc định: Giao tận nơi!)</span></p>
+                                                <Radio.Group defaultValue={'Giao tận nơi'} onChange={handleTraferPayment}>
+                                                    <Radio value='Giao tận nơi'>Giao tận nơi</Radio>
+                                                    <Radio value='Nhận tại cửa hàng'>Nhận tại cửa hàng</Radio>
+                                                </Radio.Group>
                                             </div>
                                             <div className="sidebox-order_action">
                                                 {/* <a href='/' className="button dark btncart-checkout">THANH TOÁN</a> */}
-                                                <CustomButton name='THANH TOÁN' />
+                                                <CustomButton onClick={handlePayment} name='THANH TOÁN' />
                                                 <p className="link-continue text-center">
                                                     <Link to="/collections/all">
                                                         <i className="fa fa-reply"></i> Tiếp tục mua hàng

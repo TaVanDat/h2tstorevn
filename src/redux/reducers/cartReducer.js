@@ -1,4 +1,4 @@
-import { ADD_CART, REQUEST_DELETE_CART, ADD_CART_LOCAL, INCREASE, DECREASE, ERROR, REMOVE_ITEM, REQUEST_GET_TO_CART, REQUEST_ADD_TO_CART, GET_CART_DETAIL } from "../actionsType";
+import { ADD_CART, REQUEST_DELETE_CART, REQUEST_PAYMENT_CART, PAYMENT, ADD_CART_LOCAL, INCREASE, DECREASE, ERROR, REMOVE_ITEM, REQUEST_GET_TO_CART, REQUEST_ADD_TO_CART, GET_CART_DETAIL } from "../actionsType";
 const initialState = {
     isLoading: false,
     cart: [],
@@ -37,6 +37,19 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 cart: action.payload,
+                message: 'SUCCESS',
+                success: true,
+            }
+        case REQUEST_PAYMENT_CART:
+            return {
+                ...state,
+                isLoading: true,
+                message: 'REQUESTING',
+            }
+        case PAYMENT:
+            return {
+                ...state,
+                isLoading: false,
                 message: 'SUCCESS',
                 success: true,
             }

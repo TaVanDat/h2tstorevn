@@ -100,7 +100,7 @@ const Detail = props => {
             Size: fieldValue.Size ? fieldValue.Size : productIdRef.current.Size[0],
             Color: fieldValue.Color ? fieldValue.Color : productIdRef.current.Color[0],
         }
-        console.log(values)
+        // console.log(values)
         let cartLocal = {
             Name: productIdRef.current.Name
         }

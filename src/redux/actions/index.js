@@ -1,4 +1,4 @@
-import { ADD_CART, ADD_CART_LOCAL, REQUEST_DELETE_CART, INCREASE, DECREASE, ERROR, REMOVE_ITEM, REQUEST_GET_TO_CART, REQUEST_ADD_TO_CART, GET_CART_DETAIL } from "../actionsType";
+import { ADD_CART, PAYMENT, REQUEST_PAYMENT_CART, ADD_CART_LOCAL, REQUEST_DELETE_CART, INCREASE, DECREASE, ERROR, REMOVE_ITEM, REQUEST_GET_TO_CART, REQUEST_ADD_TO_CART, GET_CART_DETAIL } from "../actionsType";
 
 import axios from "axios";
 
@@ -75,6 +75,25 @@ export const deleteCartItem = (param) => async dispatch => {
         } else {
             dispatch({
                 type: ADD_CART_LOCAL,
+            })
+        }
+    } catch (error) {
+        dispatch({ type: ERROR })
+    }
+}
+
+export const payment = (data) => async dispatch => {
+    try {
+        if (auth) {
+            dispatch({ type: REQUEST_PAYMENT_CART })
+            const response = await axios.post("http://localhost:5000/api/v1/cart/payment", data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            dispatch({
+                type: PAYMENT,
             })
         }
     } catch (error) {
