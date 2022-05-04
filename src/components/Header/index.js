@@ -15,8 +15,10 @@ import { Logout } from '../../services'
 import * as api from '../../api/apiClient'
 import { useDispatch, useSelector } from 'react-redux';
 import { getCart } from '../../redux/actions';
-const urlImg = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/';
+import jwt_decode from "jwt-decode";
 
+
+const urlImg = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/';
 const steps = [
     {
         content: ''
@@ -26,12 +28,22 @@ const steps = [
     }
 ]
 const Header = () => {
+    let token = localStorage.getItem('token')
     const cartLocal = useSelector(state => state.cartLocal)
     const cart = useSelector(state => state.cart.cart)
     const success = useSelector(state => state.cart.success)
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getCart())
+        if (token) {
+            let decoded = jwt_decode(token)
+            if (decoded.exp * 1000 < new Date().getTime()) {
+                localStorage.clear()
+                navigate('/account/login')
+            }
+            else {
+                dispatch(getCart())
+            }
+        }
     }, [success])
     const [isOpenned, setIsOpenned] = useState(false);
     const [current, setCurrent] = React.useState(0);

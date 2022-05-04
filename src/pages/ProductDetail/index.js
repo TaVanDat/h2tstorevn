@@ -18,7 +18,7 @@ import Footer from '../../components/Footer'
 import BreadCrumb from '../../components/common/BreadCrum';
 import { useNavigate, useParams } from 'react-router'
 import Containers from '../../components/common/Container';
-import { Image, Form, Radio, Spin } from 'antd';
+import { Image, Form, Radio, Spin, notification } from 'antd';
 import select_size from '../../assets/images/select_size.png'
 import CustomButton from '../../components/common/Button';
 
@@ -90,12 +90,13 @@ const Detail = props => {
         getProduct();
     }, [id])
     const cart = useSelector(state => state.cart.cart)
+    const success = useSelector(state => state.cart.success)
     const onFinish = (fieldValue) => {
         const values = {
             ...fieldValue,
             Quantity: String(quantity),
             ProductId: id,
-            SalePrice: productIdRef.current.SalePrice,
+            SalePrice: String(productIdRef.current.SalePrice),
             Size: fieldValue.Size ? fieldValue.Size : productIdRef.current.Size[0],
             Color: fieldValue.Color ? fieldValue.Color : productIdRef.current.Color[0],
         }
@@ -111,6 +112,13 @@ const Detail = props => {
         // localStorage.setItem('cart_user', JSON.stringify([...cart_user, JSON.parse(JSON.stringify(values))]))
         // console.log(values);
         // console.log(cart)
+        if (success) {
+            notification.success({
+                message: 'Thêm thành công!',
+                description: '',
+                className: 'add_success'
+            })
+        }
     };
     return (
         <>

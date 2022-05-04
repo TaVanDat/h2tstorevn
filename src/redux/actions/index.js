@@ -57,3 +57,27 @@ export const addCart = (data) => async dispatch => {
         dispatch({ type: ERROR })
     }
 }
+
+export const deleteCartItem = (param) => async dispatch => {
+    try {
+        if (auth) {
+            dispatch({ type: REQUEST_DELETE_CART })
+            const response = await axios.delete(`http://localhost:5000/api/v1/cart/delete?${param}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            dispatch({
+                type: REMOVE_ITEM,
+                payload: response.data.data
+            })
+        } else {
+            dispatch({
+                type: ADD_CART_LOCAL,
+            })
+        }
+    } catch (error) {
+        dispatch({ type: ERROR })
+    }
+}

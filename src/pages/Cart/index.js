@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 import 'antd/dist/antd.min.css';
 import './style.css';
+
 import { Table, Spin } from 'antd';
+import queryString from 'query-string'
 import { DeleteOutlined, HomeOutlined } from '@ant-design/icons';
 import BreadCrumb from '../../components/common/BreadCrum'
 import Containers from '../../components/common/Container'
@@ -10,7 +12,7 @@ import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import { Format } from '../../services'
 import { Link } from 'react-router-dom';
-import { getCart } from '../../redux/actions';
+import { getCart, addCart, deleteCartItem } from '../../redux/actions';
 
 import { useDispatch, useSelector } from 'react-redux';
 import CustomButton from '../../components/common/Button';
@@ -48,6 +50,20 @@ const Cart = () => {
             })
         }
         )
+        dispatch(addCart(dataSourceRef.current.filter(item => {
+            if (Number(item.ProductId) === Number(record.ProductId) && item.Size === record.Size && item.Color === record.Color)
+                return item
+        }).map(item => {
+            return {
+                ProductId: String(item.ProductId),
+                Quantity: String(1),
+                SalePrice: String(item.SalePrice),
+                Size: item.Size,
+                Color: item.Color
+            }
+        })[0]
+
+        ))
     }
     const handleDeQuantity = (record) => {
         setDataSource(pre => {
@@ -61,6 +77,43 @@ const Cart = () => {
 
             })
         })
+        dispatch(addCart(dataSourceRef.current.filter(item => {
+            if (Number(item.ProductId) === Number(record.ProductId) && item.Size === record.Size && item.Color === record.Color)
+                return item
+        }).map(item => {
+            return {
+                ProductId: String(item.ProductId),
+                Quantity: String(-1),
+                SalePrice: String(item.SalePrice),
+                Size: item.Size,
+                Color: item.Color
+            }
+        })[0]
+
+        ))
+    }
+    const deleteCart = async (record) => {
+        const params = await dataSourceRef.current.filter(item => {
+            if (Number(item.ProductId) === Number(record.ProductId) && item.Size === record.Size && item.Color === record.Color)
+                return item
+        }).map(item => {
+            return {
+                productId: String(item.ProductId),
+                size: item.Size,
+                color: item.Color
+            }
+        })[0]
+        // console.log(params)
+        dispatch(deleteCartItem(queryString.stringify(params)))
+        // console.log(dataSourceRef.current.filter(item => (Number(item.ProductId) !== Number(record.ProductId) & item.Size !== record.Size & item.Color !== record.Color & Number(item.Quantity) !== Number(record.Quantity))))
+        // console.log(dataSourceRef.current.filter(item => (item.ProductId == record.ProductId & item.Name == record.Name && item.Size == record.Size & item.Color == record.Color)))
+        // console.log(dataSourceRef.current.filter((item, index) => index !== dataSourceRef.current.findIndex(item => (item.ProductId == record.ProductId & item.Name == record.Name && item.Size == record.Size))))
+        // console.log(dataSourceRef.current)
+        setDataSource(pre => {
+            // return pre.filter(item => (Number(item.ProductId) !== Number(record.ProductId) & item.Size !== record.Size & item.Color !== record.Color & Number(item.Quantity) !== Number(record.Quantity)))
+            return pre.filter((item, index) => index !== dataSourceRef.current.findIndex(item => (item.ProductId == record.ProductId & item.Name == record.Name && item.Size == record.Size)))
+        }
+        )
     }
     const styleBtnDe = {
         position: "absolute",
@@ -112,7 +165,9 @@ const Cart = () => {
             title: '', key: 'Delete',
             render: (record) => {
                 return (
-                    <DeleteOutlined style={{ color: 'red' }} />
+                    <DeleteOutlined onClick={() => {
+                        deleteCart(record)
+                    }} style={{ color: 'red' }} />
                 )
             }
         }

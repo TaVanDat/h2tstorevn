@@ -43,7 +43,7 @@ const cartReducer = (state = initialState, action) => {
         case REQUEST_DELETE_CART:
             return {
                 ...state,
-                isLoading: false,
+                isLoading: true,
                 message: 'REQUESTING',
             }
         case REMOVE_ITEM:
