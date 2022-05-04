@@ -101,24 +101,33 @@ const Detail = props => {
             Color: fieldValue.Color ? fieldValue.Color : productIdRef.current.Color[0],
         }
         // console.log(values)
-        let cartLocal = {
+        let cartLocals = {
             Name: productIdRef.current.Name
         }
-        auth ?
+        if (auth) {
             dispatch(addCart(JSON.parse(JSON.stringify(values))))
-            :
-            dispatch(addCart(JSON.parse(JSON.stringify({ ...values, ...cartLocal }))))
+            if (success) {
+                notification.success({
+                    message: 'Thêm thành công!',
+                    description: '',
+                    className: 'add_success'
+                })
+            }
+
+        }
+        else {
+            notification.info({
+                message: 'Bạn nên đăng nhập để mua hàng dễ hơn!',
+                description: '',
+                className: 'add_success'
+            })
+            dispatch(addCart(JSON.parse(JSON.stringify({ ...values, ...cartLocals }))))
+
+        }
         // navigate('/account/login')
         // localStorage.setItem('cart_user', JSON.stringify([...cart_user, JSON.parse(JSON.stringify(values))]))
         // console.log(values);
         // console.log(cart)
-        if (success) {
-            notification.success({
-                message: 'Thêm thành công!',
-                description: '',
-                className: 'add_success'
-            })
-        }
     };
     return (
         <>

@@ -38,6 +38,11 @@ const Header = () => {
             let decoded = jwt_decode(token)
             if (decoded.exp * 1000 < new Date().getTime()) {
                 localStorage.clear()
+                notification.error({
+                    message: "Bạn đã hết hạn đăng nhập, hãy đăng nhập lại!",
+                    description: '',
+                    className: 'expired-login'
+                })
                 navigate('/account/login')
             }
             else {

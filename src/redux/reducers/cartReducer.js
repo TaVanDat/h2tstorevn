@@ -52,6 +52,7 @@ const cartReducer = (state = initialState, action) => {
                 isLoading: false,
                 message: 'SUCCESS',
                 success: true,
+                cart: [],
             }
         case REQUEST_DELETE_CART:
             return {

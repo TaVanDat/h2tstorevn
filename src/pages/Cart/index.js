@@ -204,29 +204,39 @@ const Cart = () => {
         //     }
         // })
         // console.log(cart.TotalPrice)
-        const dataPayment = {
-            OrderDate: moment(new Date()).format('DD-MM-YYYY'),
-            Total: cart.TotalPrice,
-            TransformMethod: paymentTransfer,
-            CartPayment: cart.data.map(item => {
-                return {
-                    ProductId: item.ProductId,
-                    UnitOfMeasureId: item.UnitOfMeasureId,
-                    Quantity: item.Quantity,
-                    SalePrice: item.SalePrice,
-                    Amount: item.Quantity * item.SalePrice,
-                }
-            })
-        }
-        auth ?
+        if (auth) {
+            const dataPayment = {
+                OrderDate: moment(new Date()).format('DD-MM-YYYY'),
+                Total: cart.TotalPrice,
+                TransformMethod: paymentTransfer,
+                CartPayment: cart.data.map(item => {
+                    return {
+                        ProductId: item.ProductId,
+                        UnitOfMeasureId: item.UnitOfMeasureId,
+                        Quantity: item.Quantity,
+                        SalePrice: item.SalePrice,
+                        Amount: item.Quantity * item.SalePrice,
+                    }
+                })
+            }
+
             dispatch(payment(dataPayment))
-            : navigate('/account/login');
-        if (success) {
-            notification.success({
-                message: 'Thành công!',
+            if (success) {
+                notification.success({
+                    message: 'Thành công!',
+                    description: "",
+                    className: 'payment-success'
+                })
+                navigate('/')
+
+            }
+        } else {
+            notification.info({
+                message: 'Bạn cần đăng nhập!',
                 description: "",
                 className: 'payment-success'
             })
+            navigate('/account/login');
         }
     }
     return (
