@@ -85,7 +85,7 @@ const Register = () => {
                 <div className="page-login-container">
                     <div className="wrapbox-heading-account">
                         <div className="header-page">
-                            <h1>Tài khoản</h1>
+                            <h1>Đăng ký</h1>
                         </div>
                     </div>
                     <div className="wrapbox-content-account">
