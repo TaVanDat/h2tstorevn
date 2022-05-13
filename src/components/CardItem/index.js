@@ -10,7 +10,7 @@ import zoom from '../../assets/icons/full-size.png'
 const CardItem = (props) => {
 
   const { title, type, description, image, product_id, salePrice, quantity, price, news_id } = props;
-  const [img, setImg] = useState(image[0]);
+  const [img, setImg] = useState(() => image ? image[0] : 'empty');
   const [visible, setVisible] = useState(false);
 
   const handleSwitchImage = (e) => {
@@ -24,7 +24,7 @@ const CardItem = (props) => {
       {
         {
           item: (
-            <CardWrapper img={img} imgHover={image[1] ? image[1] : image[0]} data-id={product_id}>
+            <CardWrapper img={img} imgHover={image ? (image[1] ? image[1] : image[0]) : 'empty.png'} data-id={product_id}>
               <div className="card--image"><a href={`/product/${product_id}`} title={title}>
                 {quantity === 0 && <span className="pro-sale-out">Hết hàng</span>}
                 {salePrice !== price && <span className="pro-sale-percent">{100 - Math.round((salePrice / price * 100).toFixed(1))}%</span>}
@@ -46,7 +46,7 @@ const CardItem = (props) => {
           blog: (
             <BlogWrapper data-id={news_id}>
               <div className="blog--image">
-                <Link to={`/product/${news_id}`}><img src={image[0]} alt='hello xin chào các m'></img></Link>
+                <Link to={`/product/${news_id}`}><img src={image && image[0]} alt='hello xin chào các m'></img></Link>
               </div>
               <div className="blog--title">
                 <p><Link to={`/product/${news_id}`}>{title}</Link></p>

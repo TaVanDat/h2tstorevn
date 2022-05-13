@@ -195,13 +195,16 @@ const Header = () => {
                                         </ul>
                                     </li>
                                     <li>
-                                        <Link to='/collections/category/10/Giày da'>Giày da</Link>
+                                        <Link to='/collections/category/10/Quần Nam'>Quần Nam</Link>
                                     </li>
                                     <li>
-                                        <Link to='/collections/category/9/Balo-túi sách'>Balo-túi sách</Link>
+                                        <Link to='/collections/category/9/Áo Nam'>Áo Nam</Link>
                                     </li>
                                     <li>
-                                        <Link to='/collections/category/11/Phụ kiện khác'>Phụ kiện khác</Link>
+                                        <Link to='/collections/category/11/Áo Nữ'>Áo Nữ</Link>
+                                    </li>
+                                    <li>
+                                        <Link to='/collections/category/13/Quần nữ'>Quần nữ</Link>
                                     </li>
                                 </ul>
                             </li>
@@ -216,7 +219,7 @@ const Header = () => {
                                         <Link to='/collections/sale75/thun-short/Sale áo thun_ quần short'>Sale áo thun_ quần short</Link>
                                     </li>
                                     <li>
-                                        <Link to='/collections/sale75/phu-kien/Sale phụ kiện'>Sale phụ kiện</Link>
+                                        <Link to='/collections/sale75/ao-nu/Áo Nữ'>Áo Nữ</Link>
                                     </li>
                                 </ul>
                             </li>

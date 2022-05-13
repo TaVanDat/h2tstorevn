@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
-// import useStateRef from 'react-usestateref'
+import useStateRef from 'react-usestateref'
 
 import "antd/dist/antd.min.css";
 import "./style.css";
@@ -22,9 +22,9 @@ import axios from "axios";
 const HomePage = () => {
   const navigate = useNavigate();
   const urlImg = 'https://res.cloudinary.com/dbfjceflf/image/upload/v1651134903/h2tstore/';
-  const [productLatest, setProductLatest] = useState([])
-  const [productSale, setProductSale] = useState([])
-  const [newsLatest, setNewsLatest] = useState([])
+  const [productLatest, setProductLatest, productLatestRef] = useStateRef([])
+  const [productSale, setProductSale, productSaleRef] = useStateRef([])
+  const [newsLatest, setNewsLatest, newsLatestRef] = useStateRef([])
   const [isLoading, setIsLoading] = useState(true);
   const fetchData = async () => {
     try {
@@ -43,7 +43,8 @@ const HomePage = () => {
         setIsLoading(false)
       }
     } catch (error) {
-      navigate('/notfound')
+      // navigate('/notfound')
+      console.log(error)
     }
   }
   useEffect(() => {
@@ -94,7 +95,7 @@ const HomePage = () => {
 
               <Containers>
                 <div className="latest__products-lists">
-                  {productLatest.map((item, index) => {
+                  {productLatestRef.current.map((item, index) => {
                     return (<CardItem key={item.Id} quantity={item.Quantity} product_id={item.Id} title={item.Name} salePrice={item.SalePrice} price={item.Price} image={item.Image.map(item => { return (urlImg + item) })} type='item' />)
                   })
                   }
@@ -116,8 +117,8 @@ const HomePage = () => {
               </div>
               <Containers>
                 <div className="sale__products-lists">
-                  {productSale.map((item, index) => {
-                    return (<CardItem key={item.Id} quantity={item.Quantity} product_id={item.Id} title={item.Name} price={item.Price} salePrice={item.SalePrice} image={item.Image.map(item => { return (urlImg + item) })} type='item' />)
+                  {productSaleRef.current && productSaleRef.current?.map((item, index) => {
+                    return (<CardItem key={item.Id} quantity={item.Quantity} product_id={item.Id} title={item.Name} price={item.Price} salePrice={item.SalePrice} image={item.Image && item.Image.map(item => { return (urlImg + item) })} type='item' />)
                   })
                   }
                 </div>
@@ -151,7 +152,7 @@ const HomePage = () => {
               </h2>
               <Containers>
                 <div className="blog--list">
-                  {newsLatest.map((item, index) => {
+                  {newsLatestRef.current.map((item, index) => {
                     return (<CardItem type='blog' key={item.Id} news_id={item.Id} title={item.Name} description={item.Content} image={(item.Image.split(',')).map(itemNew => { return (urlImg + itemNew) })} />)
                   })
                   }

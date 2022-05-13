@@ -27,6 +27,7 @@ import CardItem from '../../components/CardItem';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { addCart } from '../../redux/actions';
+import parse from "html-react-parser";
 
 
 
@@ -224,7 +225,7 @@ const Detail = props => {
                                             </div>
                                         </div>
                                     </Form>
-                                    <div className="product-description">{productIdRef.current.Description}</div>
+                                    <div className="product-description">Mô tả<br />{parse(productIdRef.current.Description)}</div>
                                 </div>
                             </div>
                         </div>
