@@ -64,10 +64,17 @@ const Detail = props => {
                 // console.log(productIdRef.current)
                 // console.log(category_idRef.current)
                 const paramString = queryString.stringify({ id, category_id: category_idRef.current })
-                const res = await axios.get(`http://localhost:5000/api/v1/product/relative?${paramString}`)
-                if (res && res.data) {
-                    setProductRelative(res.data.data.data)
+                try {
+
+                    const res = await axios.get(`http://localhost:5000/api/v1/product/relative?${paramString}`)
+                    if (res && res.data) {
+                        setProductRelative(res.data.data.data)
+                        setIsLoading(false)
+                    }
+                } catch (error) {
+                    setProductRelative([])
                     setIsLoading(false)
+
                 }
             }
         } catch (error) {
