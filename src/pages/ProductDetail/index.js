@@ -48,6 +48,8 @@ const Detail = props => {
     const [productRelative, setProductRelative, productRelativeRef] = useStateRef([])
     const [category_id, setCategory_id, category_idRef] = useStateRef(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [isDisabled, setIsDisabled] = useState(false);
+    const [isStyle, setIsStyle] = useState({});
     const navigate = useNavigate();
 
 
@@ -61,6 +63,17 @@ const Detail = props => {
             if (response && response.data) {
                 setProductId(response.data.data.data)
                 setCategory_id(Number(response.data.data.data.CategoryId))
+                if (Number(productIdRef.current.Quantity) === 0) {
+                    console.log('first')
+                    setIsDisabled(true);
+                    setIsStyle({
+                        cursor: 'not-allowed', opacity: 0.4
+                    })
+                }
+                else {
+                    setIsDisabled(false);
+                    setIsStyle({})
+                }
                 // console.log(productIdRef.current)
                 // console.log(category_idRef.current)
                 const paramString = queryString.stringify({ id, category_id: category_idRef.current })
@@ -86,8 +99,24 @@ const Detail = props => {
     const handleQuantity = (e) => {
         setQuantity(e.target.value);
     }
+
+    useEffect(() => {
+        if (quantity === productIdRef.current.Quantity || productIdRef.current.Quantity === 0) {
+            setIsDisabled(true);
+            setIsStyle({
+                cursor: 'not-allowed', opacity: 0.4
+            })
+        }
+        else {
+            setIsDisabled(false);
+            setIsStyle({})
+        }
+    }, [quantity])
     const minusQuantity = () => {
-        setQuantity(pre => pre - 1)
+        setQuantity(pre => {
+            if (pre > 1) return pre - 1
+            else return 1
+        })
     }
     const plusQuantity = () => {
         setQuantity(next => next + 1)
@@ -227,7 +256,8 @@ const Detail = props => {
                                                     {/* {
                                                     productIdRef.current.Quantity = 0
                                                 } */}
-                                                    <CustomButton disabled={productIdRef.current.Quantity === 0 ? true : false} style={productIdRef.current.Quantity === 0 ? { cursor: 'not-allowed', opacity: 0.4 } : {}} name='Thêm vào giỏ' />
+                                                    {/* <CustomButton disabled={(productIdRef.current.Quantity === 0 || Number(quantity) === productIdRef.current.Quantity) ? true : false} style={(productIdRef.current.Quantity || Number(quantity) === productIdRef.current.Quantity) === 0 ? { cursor: 'not-allowed', opacity: 0.4 } : {}} name='Thêm vào giỏ' /> */}
+                                                    <CustomButton disabled={isDisabled} style={isStyle} name='Thêm vào giỏ ' />
                                                 </Form.Item>
                                             </div>
                                         </div>
