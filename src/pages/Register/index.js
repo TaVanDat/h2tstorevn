@@ -98,18 +98,18 @@ const Register = () => {
                                 scrollToFirstError
                             >
                                 <Form.Item name="Name" rules={[{ required: true }]}>
-                                    <Input placeholder='FullName' />
+                                    <Input placeholder='Họ và tên' />
                                 </Form.Item>
                                 <Form.Item
                                     name="Email"
                                     rules={[
                                         {
                                             type: 'email',
-                                            message: 'The input is not valid E-mail!',
+                                            message: 'Email chưa đúng định dạng!',
                                         },
                                         {
                                             required: true,
-                                            message: 'Please input your E-mail!',
+                                            message: 'Email không được để trống!',
                                         },
                                     ]}
                                 >
@@ -122,12 +122,12 @@ const Register = () => {
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please input your password!',
+                                            message: 'Mật khẩu không được để trống!',
                                         },
                                     ]}
                                     hasFeedback
                                 >
-                                    <Input.Password placeholder='Password' />
+                                    <Input.Password placeholder='Mật khẩu' />
                                 </Form.Item>
 
                                 <Form.Item
@@ -137,7 +137,7 @@ const Register = () => {
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please confirm your password!',
+                                            message: 'Xác thực mật khẩu!',
                                         },
                                         ({ getFieldValue }) => ({
                                             validator(_, value) {
@@ -145,33 +145,33 @@ const Register = () => {
                                                     return Promise.resolve();
                                                 }
 
-                                                return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                                return Promise.reject(new Error('Mật khẩu không khớp!'));
                                             },
                                         }),
                                     ]}
                                 >
-                                    <Input.Password placeholder='Confirm Password' />
+                                    <Input.Password placeholder='Xác thực mật khẩu' />
                                 </Form.Item>
 
                                 <Form.Item
                                     name="UserName"
-                                    tooltip="What do you want others to call you?"
+                                    tooltip="Bạn muốn người khác gọi bạn với tên gì?"
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please input your nickname!',
+                                            message: 'Tên người dùng không được để trống!',
                                             whitespace: true,
                                         },
                                     ]}
                                 >
-                                    <Input placeholder='UserName' />
+                                    <Input placeholder='Tên người dùng' />
                                 </Form.Item>
                                 <Form.Item name="Dob"
                                     rules={[
                                         {
                                             type: 'object',
                                             required: true,
-                                            message: 'Please select time!',
+                                            message: 'Chọn ngày sinh!',
                                         }
                                     ]}
                                 >
@@ -179,42 +179,42 @@ const Register = () => {
                                 </Form.Item>
 
                                 <Form.Item name="Address" rules={[{ required: true }]}>
-                                    <Input placeholder='Address' />
+                                    <Input placeholder='Địa chỉ' />
                                 </Form.Item>
                                 <Form.Item
                                     name="Phone"
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please input your phone number!',
+                                            message: 'Điền số điện thoại!',
                                         },
                                         {
                                             validator(_, value) {
                                                 if (Number(value) || !value) {
                                                     return Promise.resolve();
                                                 }
-                                                return Promise.reject('Phone number must be number!');
+                                                return Promise.reject('Số điện thoại phải là số!');
                                             },
 
                                         },
                                         {
                                             pattern: /((09|03|07|08|05)+([0-9]{8})\b)/g,
-                                            message: 'Invalid phone number'
+                                            message: 'Không đúng định dạng'
                                         },
                                     ]}
                                 >
-                                    <Input placeholder='Phone Number' />
+                                    <Input placeholder='Số điện thoại' />
                                 </Form.Item>
                                 <Form.Item
                                     name="Gender"
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please select gender!',
+                                            message: 'Chọn giới tính!',
                                         },
                                     ]}
                                 >
-                                    <Select placeholder="select your gender">
+                                    <Select placeholder="Chọn giới tính">
                                         <Option value="Nam">Nam</Option>
                                         <Option value="Nữ">Nữ</Option>
                                         <Option value="Khác">Khác</Option>
@@ -228,18 +228,18 @@ const Register = () => {
                                     rules={[
                                         {
                                             validator: (_, value) =>
-                                                value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
+                                                value ? Promise.resolve() : Promise.reject(new Error('Bạn chưa đồng ý với chính sách')),
                                         },
                                     ]}
                                     {...tailFormItemLayout}
                                 >
                                     <Checkbox>
-                                        I have read the <a href="">agreement</a>
+                                        Tôi đồng ý với <a href="https://policies.google.com/privacy" target={'_blank'}>chính sách</a>
                                     </Checkbox>
                                 </Form.Item>
                                 <Form.Item {...tailFormItemLayout}>
                                     <Button type="primary" htmlType="submit">
-                                        Register
+                                        Đăng ký
                                     </Button>
                                 </Form.Item>
                             </Form>
