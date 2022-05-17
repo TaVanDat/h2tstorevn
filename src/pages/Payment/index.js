@@ -8,22 +8,26 @@ import {
     Modal, notification, Spin, Select
 } from "antd";
 import { EditOutlined, FileTextOutlined } from '@ant-design/icons';
-import { useHistory } from "react-router-dom";
-import { API_URL } from '../api/API_URL'
+import { useNavigate } from "react-router-dom";
+// import { API_URL } from '../../api/apiClient'
 import axios from 'axios';
 import useStateRef from 'react-usestateref';
 import moment from 'moment'
-import { Format } from '../services/Format'
+import { Format } from '../../services/index'
+import Header from '../../components/Header';
+import BreadCrumb from '../../components/common/BreadCrum';
+import Footer from '../../components/Footer';
+import Containers from '../../components/common/Container';
 
 const { Option } = Select
 
 
-
+const API_URL = 'http://localhost:5000/api/v1'
 function Payment() {
-    const history = useHistory()
-    const auth = localStorage.getItem('token_admin') ? true : false
+    const navigate = useNavigate()
+    const auth = localStorage.getItem('token') ? true : false
     useEffect(() => {
-        !auth && history.replace('/')
+        !auth && navigate('/')
     }, [])
     const [dataUser, setDataUser, dataUserRef] = useStateRef([])
     const [isEditing, setIsEditing] = useState(false)
@@ -80,28 +84,15 @@ function Payment() {
             dataIndex: "Code",
             key: "Code",
             width: 10,
-            // render(record) {
-            //   return (
-            //     <div>
-            //       <Link to={`/bill/detail/${record.Id}`} style={{ color: '#000' }}>{record.Code}</Link>
-            //     </div>
-            //   );
-            // }
-            // sorter: (a, b) => a.Id.length - b.Id.length,
-
-            // fixed: 'left'
         },
         {
             title: "Khách hàng",
             dataIndex: "Account",
             key: "Account",
             width: 30,
-            // sorter: (a, b) => a.Name.length - b.Name.length,
-            // fixed: 'left'
         },
         {
             title: "Thành tiền",
-            // dataIndex: "Total",
             key: "Total",
             width: 30,
             render(record) {
@@ -132,22 +123,8 @@ function Payment() {
             render(record) {
                 return (
                     <div>
-                        {/* {Number(record.StatusId) === 3 ? 'Đang chờ' : (Number(record.StatusId) === 4 ? 'Đã duyệt' : 'Đã hủy')} */}
-                        <Select defaultValue={3} value={Number(record.StatusId) === 3 ? 'Đang chờ' : (Number(record.StatusId) === 4 ? 'Đã duyệt' : 'Đã hủy')} onChange={(e) => {
-                            // setIsDataEdit({
-                            //   Id: record.Id,
-                            //   StatusId: e
-                            // })
-                            // console.log({
-                            //   Id: record.Id,
-                            //   StatusId: e
-                            // })
-                            handleChangeStatus(record, e);
-                        }}>
-                            <Option value={3}>Đang chờ</Option>
-                            <Option value={4}>Đã duyệt</Option>
-                            <Option value={5}>Đã hủy</Option>
-                        </Select>
+                        {Number(record.StatusId) === 3 ? 'Đang chờ' : (Number(record.StatusId) === 4 ? 'Đã duyệt' : 'Đã hủy')}
+
                     </div>
                 );
             }
@@ -167,8 +144,7 @@ function Payment() {
             render() {
                 return (
                     <div>
-                        <FileTextOutlined style={{ color: '#000', cursor: 'pointer', fontSize: 20, marginRight: 10 }} />
-                        <EditOutlined style={{ color: 'aqua', cursor: 'pointer', fontSize: 20 }} />
+                        <FileTextOutlined style={{ color: 'aqua', cursor: 'pointer', fontSize: 20, marginRight: 10 }} />
                     </div>
                 );
             },
@@ -178,29 +154,34 @@ function Payment() {
 
     return (
         <>
-            <div className="tabled">
-                <Row gutter={[24, 0]}>
-                    <Col xs="24" xl={24}>
-                        <Card
-                            bordered={false}
-                            className="criclebox tablespace mb-24"
-                            title="Danh sách hóa đơn"
-                        >
-                            <div className="table-responsive" >
-                                {isLoading ? <Spin /> :
-                                    <Table
-                                        rowKey={dataUserRef.current.map(item => { return (item.Id) })}
-                                        columns={columns}
-                                        dataSource={dataUserRef.current}
-                                        pagination={{ pageSize: 5 }}
-                                        className="ant-border-space"
-                                    />
-                                }
-                            </div>
-                        </Card>
-                    </Col>
-                </Row>
-            </div>
+            <Header />
+            <BreadCrumb name='Kiểm tra đơn hàng' />
+            <Containers>
+                <div className="tabled">
+                    <Row gutter={[24, 0]}>
+                        <Col xs="24" xl={24}>
+                            <Card
+                                bordered={false}
+                                className="criclebox tablespace mb-24"
+                                title="Danh sách hóa đơn"
+                            >
+                                <div className="table-responsive" >
+                                    {isLoading ? <Spin /> :
+                                        <Table
+                                            rowKey={dataUserRef.current.map(item => { return (item.Id) })}
+                                            columns={columns}
+                                            dataSource={dataUserRef.current}
+                                            pagination={{ pageSize: 5 }}
+                                            className="ant-border-space"
+                                        />
+                                    }
+                                </div>
+                            </Card>
+                        </Col>
+                    </Row>
+                </div>
+            </Containers>
+            <Footer />
         </>
     );
 }
