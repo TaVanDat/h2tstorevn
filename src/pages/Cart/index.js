@@ -25,12 +25,12 @@ const Cart = () => {
     const auth = localStorage.getItem('token') ? true : false
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const success = useSelector(state => state.cart.success)
     useEffect(() => {
         dispatch(getCart())
-    }, [])
+    }, [success])
     const [paymentTransfer, setPayment] = React.useState('Giao tận nơi');
     const cartLocal = useSelector(state => state.cart.cartLocal)
-    const success = useSelector(state => state.cart.success)
     const cart = useSelector(state => state.cart.cart)
     const isLoading = useSelector(state => state.cart.isLoading)
     const [dataSource, setDataSource, dataSourceRef] = useStateRef(() => {
@@ -160,7 +160,17 @@ const Cart = () => {
                 )
             }
         },
-        { title: 'Số lượng', dataIndex: 'Quantity', key: 'Quantity' },
+        {
+            title: 'Số lượng', key: 'Quantity',
+            render(record) {
+                return (
+                    <>
+                        <span style={{ position: 'relative' }}>{record.Quantity}</span>
+                        <p style={{ position: 'absolute', top: '100%', left: 0, color: 'red' }}>{record.Quantity <= 0 && 'Số lượng lớn hơn 0'}</p>
+                    </>
+                );
+            },
+        },
         {
             key: 'Quantity', title: '',
             render: (record) => {
