@@ -119,7 +119,7 @@ const Detail = props => {
         })
     }
     const plusQuantity = () => {
-        setQuantity(next => next + 1)
+        setQuantity(next => Number(next) + 1)
     }
 
     useEffect(() => {
@@ -244,6 +244,7 @@ const Detail = props => {
                                                 <input type="button" value="-" onClick={minusQuantity} className="qty-btn" />
                                                 <input type="text" id="quantity" onChange={handleQuantity} name="quantity" value={quantity} min="1" className="quantity-selector" />
                                                 <input type="button" value="+" onClick={plusQuantity} className="qty-btn" />
+                                                {quantity <= 0 && <p style={{ color: 'red' }}>Số lượng phải lớn hơn 0</p>}
                                             </div>
                                             <div className="add-to-cart">
 
