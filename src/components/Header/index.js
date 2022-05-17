@@ -258,7 +258,7 @@ const Header = () => {
                                         <Link to='/pages/tk-ngan-hang'>tk ngân hàng</Link>
                                     </li>
                                     <li>
-                                        <Link to='/'>kt đơn hàng</Link>
+                                        <Link to='/pages/kt-don-hang'>kt đơn hàng</Link>
                                     </li>
                                     <li>
                                         <Link to='/'>Membership</Link>

@@ -26,6 +26,7 @@ import Register from "../pages/Register";
 import Blog from "../pages/Blog";
 import BlogDetail from "../pages/Blog/BlogDetail";
 import Cart from "../pages/Cart";
+import Payment from "../pages/Payment";
 
 const RouterConfig = () => {
     const routes = useRoutes([
@@ -60,6 +61,7 @@ const RouterConfig = () => {
         { path: '/pages/huong-dan-chinh-sach', element: <GuidelinesPolicy /> },
         { path: '/pages/chinh-sach-doi-tra', element: <Policy /> },
         { path: '/pages/tk-ngan-hang', element: <Bank /> },
+        { path: '/pages/kt-don-hang', element: <Payment /> },
         // /collections/all
         // { path: `${Products}`, element: <Shirt /> }
     ])
