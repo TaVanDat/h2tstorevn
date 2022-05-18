@@ -203,9 +203,9 @@ const Header = () => {
                                     <li>
                                         <Link to='/collections/category/11/Áo Nữ'>Áo Nữ</Link>
                                     </li>
-                                    {/* <li>
+                                    <li>
                                         <Link to='/collections/category/13/Quần nữ'>Quần nữ</Link>
-                                    </li> */}
+                                    </li>
                                 </ul>
                             </li>
                             <li><NavLink to='/collections/sale75/Sale up to 75'>Sale up to 75%

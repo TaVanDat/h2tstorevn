@@ -46,15 +46,18 @@ const allBanner = [
     },
     {
         Id: 9,
-        banner: urlBanner + 'banner-balo.png'
+        banner: urlBanner + 'aonam1.png'
     },
     {
         Id: 10,
-        banner: urlBanner + 'banner-giay.png'
+        banner: urlBanner + 'quannam1.png'
     },
     {
         Id: 11,
-        banner: urlBanner + 'banner-khac.png'
+        banner: urlBanner + 'aonu1.png'
+    }, {
+        Id: 13,
+        banner: urlBanner + 'quannu1.png'
     },
 ]
 // console.log(allBanner)
