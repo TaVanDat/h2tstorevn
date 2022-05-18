@@ -32,7 +32,7 @@ function Payment() {
     const [dataUser, setDataUser, dataUserRef] = useStateRef([])
     const [isEditing, setIsEditing] = useState(false)
     const [isAdding, setIsAdding] = useState(false)
-    const [isDataEdit, setIsDataEdit] = useState({})
+    const [isDataEdit, setIsDataEdit, isDataEditRef] = useStateRef([])
     const [isAddNew, setIsAddNew] = useState({})
     const [success, setSuccess] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
@@ -51,33 +51,6 @@ function Payment() {
         fetchData()
     }, [success, isLoading])
 
-    const handleChangeStatus = async (record, e) => {
-        const dataStatus = { Id: record.Id, StatusId: e }
-        // update-bill
-        await axios.put(`${API_URL}/bill/update-bill`, dataStatus, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(() => {
-                notification.success({
-                    message: 'Update Success',
-                    description: '',
-                    className: 'update-success'
-                })
-                setIsLoading(false)
-                setSuccess(true)
-            })
-            .catch(err => {
-                notification.error({
-                    message: 'Update Error' + err,
-                    description: '',
-                    className: 'update-error'
-                })
-                setSuccess(false)
-            })
-        console.log(dataStatus)
-    }
     const columns = [
         {
             title: "Mã hóa đơn",
@@ -133,7 +106,7 @@ function Payment() {
         {
             title: "Phương thức vận chuyển",
             key: "TransformMethod",
-            width: 100,
+            width: 150,
             dataIndex: "TransformMethod",
 
         },
@@ -141,32 +114,86 @@ function Payment() {
             title: "Hành động",
             key: "Action",
             width: 100,
-            render() {
+            render(record) {
                 return (
                     <div>
-                        <FileTextOutlined style={{ color: 'aqua', cursor: 'pointer', fontSize: 20, marginRight: 10 }} />
+                        <FileTextOutlined onClick={() => {
+                            handleDetailBill(record)
+                        }}
+
+                            style={{ color: 'aqua', cursor: 'pointer', fontSize: 20, marginRight: 10 }} />
                     </div>
                 );
             },
         },
     ];
+    const columnsDetail = [
+        {
+            title: "Tên sản phẩm",
+            dataIndex: "Name",
+            key: "Name",
+            width: 300
+        },
+        {
+            title: "Số lượng",
+            dataIndex: "Quantity",
+            key: "Quantity",
+            width: 100
+        },
+        {
+            title: "Đơn giá",
+            key: "Price",
+            width: 100,
 
+            render(record) {
+                return (
+                    <>
+                        {Format(record.Price)}
+                    </>
+                );
+            }
+        },
+        {
+            title: "Thành tiền",
+            key: "Amount",
+            width: 100,
+            render(record) {
+                return (
+                    <>
+                        {Format(record.Amount)}
+                    </>
+                );
+            }
+        },
 
+    ];
+
+    const handleDetailBill = async (record) => {
+        setIsEditing(true);
+        await axios.get(`${API_URL}/bill/${record.Id}`)
+            .then(res => {
+                setIsDataEdit(res.data.data.data)
+                setIsLoading(false)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
     return (
         <>
             <Header />
             <BreadCrumb name='Kiểm tra đơn hàng' />
             <Containers>
-                <div className="tabled">
-                    <Row gutter={[24, 0]}>
-                        <Col xs="24" xl={24}>
-                            <Card
-                                bordered={false}
-                                className="criclebox tablespace mb-24"
-                                title="Danh sách hóa đơn"
-                            >
-                                <div className="table-responsive" >
-                                    {isLoading ? <Spin /> :
+                {dataUserRef.current &&
+                    <div className="tabled">
+                        <Row gutter={[24, 0]}>
+                            <Col xs="24" xl={24}>
+                                <Card
+                                    bordered={false}
+                                    className="criclebox tablespace mb-24"
+                                    title="Danh sách hóa đơn"
+                                >
+                                    <div className="table-responsive" >
                                         <Table
                                             rowKey={dataUserRef.current.map(item => { return (item.Id) })}
                                             columns={columns}
@@ -174,12 +201,32 @@ function Payment() {
                                             pagination={{ pageSize: 5 }}
                                             className="ant-border-space"
                                         />
-                                    }
-                                </div>
-                            </Card>
-                        </Col>
-                    </Row>
-                </div>
+                                        <Drawer
+                                            title="Hóa đơn chi tiết"
+                                            width={720}
+                                            bodyStyle={{ paddingBottom: 80 }}
+                                            onClose={() => {
+                                                setIsEditing(false)
+                                            }}
+                                            visible={isEditing}
+                                        >
+                                            <Row gutter={[24, 0]}>
+                                                <Table
+                                                    rowKey={isDataEditRef.current.map(item => { return (item.Id) })}
+                                                    columns={columnsDetail}
+                                                    dataSource={isDataEditRef.current}
+                                                    pagination={{ pageSize: 5 }}
+                                                    className="ant-border-space"
+                                                />
+                                            </Row>
+
+                                        </Drawer>
+                                    </div>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </div>
+                }
             </Containers>
             <Footer />
         </>
